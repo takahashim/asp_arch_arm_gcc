@@ -1,5 +1,5 @@
 #
-#  @(#) $Id: Makefile.chip 847 2008-03-20 15:52:24Z honda $
+#  @(#) $Id: Makefile.chip 1076 2008-05-29 14:24:14Z ertl-honda $
 # 
 
 #
@@ -37,6 +37,11 @@ endif
 KERNEL_DIR := $(KERNEL_DIR) $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
 KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) chip_support.o
 KERNEL_COBJS := $(KERNEL_COBJS) chip_config.o chip_timer.o \
+
+#
+#  コンフィギュレータ関係の変数の定義
+#
+CFG_TABS := $(CFG_TABS) --cfg1-def-table $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/chip_def.csv
 
 #
 #  リンカスクリプトの定義
