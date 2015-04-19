@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_kernel.h 388 2007-07-19 09:33:58Z honda $
+ *  @(#) $Id: core_kernel.h 2346 2012-04-26 07:15:16Z ertl-honda $
  */
 
 /*
@@ -53,13 +53,44 @@
 
 #ifndef TOPPERS_MACRO_ONLY
 
+#include "arm.h"
+
+#if (__TARGET_ARCH_ARM == 4) || (__TARGET_ARCH_ARM == 5)
+typedef struct {
+	uint32_t nest_count;
+	uint32_t ipm;
+	uint32_t cpsr;
+	uint32_t r0;
+	uint32_t r1;
+	uint32_t r2;
+	uint32_t r3;
+	uint32_t r12;
+	uint32_t lr;
+	uint32_t pc;
+} exc_frame_t;
+#else /* (__TARGET_ARCH_ARM == 6) || (__TARGET_ARCH_ARM == 7) */
+typedef struct {
+	uint32_t nest_count;
+	uint32_t ipm;
+	uint32_t r0;
+	uint32_t r1;
+	uint32_t r2;
+	uint32_t r3;
+	uint32_t r12;
+	uint32_t lr;
+	uint32_t pc;
+	uint32_t cpsr;
+} exc_frame_t;
+#endif /* (__TARGET_ARCH_ARM == 6) || (__TARGET_ARCH_ARM == 7) */
+
+
 /*
  * CPU例外からの戻り先アドレスの取得
  */
 Inline uint32_t
 x_get_exc_raddr(void *p_excinf)
 {
-    return(*(((uint32_t *)(p_excinf)) + 9));
+	return(((exc_frame_t *)(p_excinf))->pc);
 }
 
 /*
@@ -68,8 +99,74 @@ x_get_exc_raddr(void *p_excinf)
 Inline void
 x_set_exc_raddr(void *p_excinf, uint32_t pc)
 {
-    *(((uint32_t *)(p_excinf)) + 9) = pc;
+	((exc_frame_t *)(p_excinf))->pc = pc;
 }
+
+#if __TARGET_ARCH_ARM == 7
+
+/* 性能計測用のカウンタのデータ型 */
+typedef uint32_t PERFCNT;
+
+/*
+ *  パフォーマンスカウンタの初期化
+ */
+Inline void
+x_init_pcc(void)
+{
+	uint32_t tmp;
+	/* 全カウンターの有効化 */
+	CP15_PMCR_READ(tmp);
+
+#ifdef TOPPERS_ARM_PCC_DIV64
+	tmp |= CP15_PMCR_PMCCNTR_D;
+#else /* !TOPPERS_ARM_PCC_DIV64 */
+	tmp &= ~CP15_PMCR_PMCCNTR_D;
+#endif /* TOPPERS_ARM_PCC_DIV64 */
+
+	CP15_PMCR_WRITE(tmp|CP15_PMCR_ALLCNTR_ENABLE);
+
+	/* パフォーマンスカウンタの有効化 */
+	CP15_PMCNTENSET_READ(tmp);
+	CP15_PMCNTENSET_WRITE(tmp|CP15_PMCNTENSET_CCNTR_ENABLE);
+}
+
+/*
+ *  パフォーマンスカウンタの読み込み
+ */
+Inline void 
+x_get_pcc(PERFCNT *p_count)
+{
+	CP15_PMCCNTR_READ(*p_count);
+}
+
+/*
+ *  パフォーマンスカウンタのリセット
+ */
+Inline void
+x_rst_pcc(void)
+{
+	uint32_t tmp;
+	CP15_PMCR_READ(tmp);
+	CP15_PMCR_WRITE(tmp|CP15_PMCR_PMCCNTR_CLEAR);
+}
+
+/*
+ *  カウンタ値のnsecへの変換
+ */
+Inline ulong_t
+x_cnv_nsec(PERFCNT count) {
+#ifdef TOPPERS_ARM_PCC_DIV64
+	return ((ulong_t)count*(1000/(CORE_CLK_MHZ/64)));
+#else /* !TOPPERS_ARM_PCC_DIV64 */
+	return ((ulong_t)count*(1000/CORE_CLK_MHZ));
+#endif /* TOPPERS_ARM_PCC_DIV64 */
+}
+
+#elif __TARGET_ARCH_ARM == 6
+
+
+#endif /* __TARGET_ARCH_ARM == 7 */
+
 #endif /* TOPPERS_MACRO_ONLY */
 
 #endif /* TOPPERS_CORE_KERNEL_H */

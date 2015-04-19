@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2011 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2013 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_config.h 2075 2011-05-09 03:47:09Z ertl-honda $
+ *  @(#) $Id: core_config.h 2458 2013-02-05 15:07:13Z ertl-honda $
  */
 
 
@@ -61,7 +61,9 @@
  *  エラーチェック方法の指定
  */
 #define CHECK_STKSZ_ALIGN	8	/* スタックサイズのアライン単位 */
+#ifndef  __thumb__
 #define CHECK_FUNC_ALIGN	4	/* 関数のアライン単位 */
+#endif /* __thumb__ */
 #define CHECK_FUNC_NONNULL		/* 関数の非NULLチェック */
 #define CHECK_STACK_ALIGN	4	/* スタック領域のアライン単位 */
 #define CHECK_STACK_NONNULL		/* スタック領域の非NULLチェック */
@@ -93,7 +95,7 @@
  */
 #define EXCH_NO_RESET     0
 #define EXCH_NO_UNDEF     1
-#define EXCH_NO_SWI       2
+#define EXCH_NO_SVC       2
 #define EXCH_NO_PABORT    3
 #define EXCH_NO_DABORT    4
 #define EXCH_NO_IRQ       5
@@ -109,19 +111,20 @@
 /*
  *  非タスクコンテキスト用のスタック初期値
  */
-#define TOPPERS_ISTKPT(istk, istksz) ((STK_T *)((char_t *)(istk) + (istksz)))
+#define TOPPERS_ISTKPT(istk, istksz) ((STK_T *)((uint8_t *)(istk) + (istksz)))
 
 /*
  *  プロセッサの特殊命令のインライン関数定義
+ *  ARMCCの共有のため，コンパイラの引数に指定された順で検索するようにする．
  */
-#include "core_insn.h"
+#include <core_insn.h>
 
 /*
  *  タスクコンテキストブロックの定義
  */
 typedef struct task_context_block {
-    void  *sp;       /* スタックポインタ */
-    FP    pc;        /* プログラムカウンタ */
+	void    *sp;   /* スタックポインタ */
+	FP      pc;    /* プログラムカウンタ */
 } TSKCTXB;
 
 
@@ -152,7 +155,7 @@ extern uint32_t excpt_nest_count; /* 例外（割込み/CPU例外）のネスト
 Inline bool_t
 sense_context(void)
 {
-    return(excpt_nest_count > 0U);
+	return(excpt_nest_count > 0U);
 }
 
 /*
@@ -161,9 +164,9 @@ sense_context(void)
 Inline void
 x_lock_cpu(void)
 {
-    set_sr(current_sr() | CPSR_CPULOCK | CPSR_ALWAYS_SET);
-    /* クリティカルセクションの前後でメモリが書き換わる可能性がある */
-    Asm("":::"memory");
+	set_sr(current_sr() | CPSR_CPULOCK | CPSR_ALWAYS_SET);
+	/* クリティカルセクションの前後でメモリが書き換わる可能性がある */
+	ARM_MEMORY_CHANGED;
 }
 
 #define t_lock_cpu()   x_lock_cpu()
@@ -175,9 +178,9 @@ x_lock_cpu(void)
 Inline void
 x_unlock_cpu(void)
 {
-    /* クリティカルセクションの前後でメモリが書き換わる可能性がある */
-    Asm("":::"memory");
-    set_sr((current_sr() & (~CPSR_CPULOCK)) | CPSR_ALWAYS_SET);
+	/* クリティカルセクションの前後でメモリが書き換わる可能性がある */
+	ARM_MEMORY_CHANGED;
+	set_sr((current_sr() & (~CPSR_CPULOCK)) | CPSR_ALWAYS_SET);
 }
 
 #define t_unlock_cpu() x_unlock_cpu()
@@ -189,11 +192,11 @@ x_unlock_cpu(void)
 Inline bool_t
 x_sense_lock(void)
 {
-    return((current_sr() & CPSR_CPULOCK) == CPSR_CPULOCK);    
+	return((current_sr() & CPSR_CPULOCK) == CPSR_CPULOCK);
 }
 
-#define t_sense_lock()    x_sense_lock()
-#define i_sense_lock()    x_sense_lock()
+#define t_sense_lock() x_sense_lock()
+#define i_sense_lock() x_sense_lock()
 
 /*
  *  タスクディスパッチャ
@@ -235,7 +238,6 @@ extern void exit_and_dispatch(void) NoReturn;
  *  す．
  */
 extern void call_exit_kernel(void) NoReturn;
-
      
 /*
  *  タスクコンテキストの初期化
@@ -246,11 +248,11 @@ extern void call_exit_kernel(void) NoReturn;
  *  activate_contextを，インライン関数ではなくマクロ定義としているのは，
  *  この時点ではTCBが定義されていないためである．
  */
-extern void    start_r(void);
+extern void start_r(void);
 
 #define activate_context(p_tcb)                                         \
 {                                                                       \
-    (p_tcb)->tskctxb.sp = (void *)((char_t *)((p_tcb)->p_tinib->stk)    \
+    (p_tcb)->tskctxb.sp = (void *)((uint8_t *)((p_tcb)->p_tinib->stk)   \
                                         + (p_tcb)->p_tinib->stksz);     \
     (p_tcb)->tskctxb.pc = (FP)start_r;                                  \
 }
@@ -259,11 +261,6 @@ extern void    start_r(void);
  *  calltexは使用しない
  */
 #define OMIT_CALLTEX
-     
-/*
- *  CPU例外ハンドラの登録用テーブル
- */
-extern const FP exch_tbl[TNUM_EXCH];
 
 /*
  * ターゲット非依存部に含まれる標準の例外管理機能の初期化処理を用いない
@@ -291,7 +288,7 @@ initialize_exception(void)
 Inline bool_t
 exc_sense_context(void *p_excinf)
 {
-    return((*((uint32_t *) p_excinf)) != 0U);
+	return(((exc_frame_t *)(p_excinf))->nest_count != 0U);
 }
 
 /*
@@ -300,7 +297,7 @@ exc_sense_context(void *p_excinf)
 Inline PRI
 exc_get_ipm(void *p_excinf)
 {
-    return((PRI)(*(((uint32_t *)(p_excinf)) + 1)));
+	return((PRI)(((exc_frame_t *)(p_excinf))->ipm));
 }
 
 /*
@@ -308,7 +305,7 @@ exc_get_ipm(void *p_excinf)
  */
 Inline uint32_t
 exc_get_sr(void *p_excinf){
-    return(*(((uint32_t *)(p_excinf)) + 2));    
+	return(((exc_frame_t *)(p_excinf))->cpsr);
 }
 
 /*
@@ -316,7 +313,7 @@ exc_get_sr(void *p_excinf){
  */
 Inline bool_t
 exc_sense_lock(void *p_excinf){
-    return((exc_get_sr(p_excinf) & CPSR_CPULOCK) == CPSR_CPULOCK);
+	return((exc_get_sr(p_excinf) & CPSR_CPULOCK) == CPSR_CPULOCK);
 }
 
 /*
@@ -324,7 +321,7 @@ exc_sense_lock(void *p_excinf){
  */
 Inline bool_t
 exc_sense_int_lock(void *p_excinf){
-    return((exc_get_sr(p_excinf) & CPSR_INTLOCK) == CPSR_INTLOCK);
+	return((exc_get_sr(p_excinf) & CPSR_INTLOCK) == CPSR_INTLOCK);
 }
 
 /*
@@ -340,10 +337,10 @@ exc_sense_int_lock(void *p_excinf){
 Inline bool_t
 exc_sense_intmask(void *p_excinf)
 {
-    return(!exc_sense_context(p_excinf)
-             && (exc_get_ipm(p_excinf) == 0U)
-               && !exc_sense_lock(p_excinf)
-                 && !exc_sense_int_lock(p_excinf));
+	return(!exc_sense_context(p_excinf)
+		   && (exc_get_ipm(p_excinf) == 0U)
+		   && !exc_sense_lock(p_excinf)
+		   && !exc_sense_int_lock(p_excinf));
 }
 
 /*
@@ -377,9 +374,9 @@ extern void x_install_exc(EXCNO excno, FP exchdr);
 extern void undef_handler(void);
 
 /*
- *  SWI 例外ハンドラ（core_support.S）
+ *  SVC 例外ハンドラ（core_support.S）
  */
-extern void swi_handler(void);
+extern void svc_handler(void);
 
 /*
  *  プリフェッチアボード 例外ハンドラ（core_support.S）

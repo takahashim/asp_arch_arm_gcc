@@ -1,10 +1,9 @@
 /*
- *  TOPPERS Software
- *      Toyohashi Open Platform for Embedded Real-Time Systems
+ *  TOPPERS/ASP Kernel
+ *      Toyohashi Open Platform for Embedded Real-Time Systems/
+ *      Advanced Standard Profile Kernel
  * 
- *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
- *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2004-2010 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2013 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -36,96 +35,58 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_sil.h 2266 2011-11-22 09:40:42Z ertl-honda $
+ *  @(#) $Id: pl310.h 2496 2013-03-31 13:19:15Z ertl-honda $
  */
 
 /*
- *  sil.hのコア依存部（ARM用）
+ * R-Mobile-A1のL2キャッシュコントローラPL310向け定義
  */
+#ifndef PL310_H
+#define PL310_H
 
-#ifndef TOPPERS_CORE_SIL_H
-#define TOPPERS_CORE_SIL_H
+#include <sil.h>
+
+#define RMA1_L2CACHE_BASE	0xF0100000
+
+#define PL310_CACHE_ID			0x000
+#define PL310_CACHE_ID_PART_MASK	(0xf << 6)
+#define PL310_CACHE_ID_PART_L210	(1 << 6)
+#define PL310_CACHE_ID_PART_L310	(3 << 6)
+#define PL310_CACHE_TYPE			0x004
+#define PL310_CTRL			0x100
+#define PL310_AUX_CTRL			0x104
+#define PL310_TAG_LATENCY_CTRL		0x108
+#define PL310_DATA_LATENCY_CTRL		0x10C
+#define PL310_EVENT_CNT_CTRL		0x200
+#define PL310_EVENT_CNT1_CFG		0x204
+#define PL310_EVENT_CNT0_CFG		0x208
+#define PL310_EVENT_CNT1_VAL		0x20C
+#define PL310_EVENT_CNT0_VAL		0x210
+#define PL310_INTR_MASK			0x214
+#define PL310_MASKED_INTR_STAT		0x218
+#define PL310_RAW_INTR_STAT		0x21C
+#define PL310_INTR_CLEAR			0x220
+#define PL310_CACHE_SYNC			0x730
+#define PL310_INV_LINE_PA		0x770
+#define PL310_INV_WAY			0x77C
+#define PL310_CLEAN_LINE_PA		0x7B0
+#define PL310_CLEAN_LINE_IDX		0x7B8
+#define PL310_CLEAN_WAY			0x7BC
+#define PL310_CLEAN_INV_LINE_PA		0x7F0
+#define PL310_CLEAN_INV_LINE_IDX		0x7F8
+#define PL310_CLEAN_INV_WAY		0x7FC
+#define PL310_LOCKDOWN_WAY_D		0x900
+#define PL310_LOCKDOWN_WAY_I		0x904
+#define PL310_TEST_OPERATION		0xF00
+#define PL310_LINE_DATA			0xF10
+#define PL310_LINE_TAG			0xF30
+#define PL310_DEBUG_CTRL			0xF40
+#define PL310_PREFETCH_CTRL		0xF60
+#define PL310_POWER_CTRL			0xF80
 
 #ifndef TOPPERS_MACRO_ONLY
-
-#ifdef __thumb__
-/*
- *  制御レジスタの操作関数
- */
-
-/*
- *  ステータスレジスタ（CPSR）の現在値の読出し
- */
-extern uint32_t current_sr(void);
-
-/*
- *  ステータスレジスタ（CPSR）の現在値の変更
- */
-extern void set_sr(uint32_t sr);
-#endif /* __thumb__ */
-
-/*
- *  すべての割込み（FIQとIRQ）の禁止
- */
-Inline uint32_t
-TOPPERS_disint(void)
-{
-    uint32_t  cpsr;
-    uint32_t  irq_fiq_mask;
-
-#ifndef __thumb__
-    Asm("mrs  %0,CPSR" : "=r"(cpsr));
-    irq_fiq_mask = cpsr & (0x40|0x80);
-    cpsr |= (0x40|0x80);
-    Asm("msr CPSR, %0" : : "r"(cpsr) :"memory", "cc");
-#else /* __thumb__ */
-    cpsr = current_sr();
-    irq_fiq_mask = cpsr & (0x40|0x80);
-    cpsr |= (0x40|0x80);
-    set_sr(cpsr);
-#endif /* __thumb__ */
-
-    return(irq_fiq_mask);
-}
-
-/*
- *  FIQ,IRQの設定
- */
-Inline void
-TOPPERS_set_fiq_irq(uint32_t TOPPERS_irq_fiq_mask)
-{
-    uint32_t  cpsr;
-
-#ifndef __thumb__
-    Asm("mrs  %0,CPSR" : "=r"(cpsr));
-    cpsr = cpsr & ~(0x40|0x80);
-    cpsr = cpsr | (TOPPERS_irq_fiq_mask & (0x40|0x80));
-    Asm("msr CPSR, %0" : : "r"(cpsr):"memory", "cc");
-#else /* __thumb__ */
-    cpsr = current_sr();
-    cpsr = cpsr &  ~(0x40|0x80);
-    cpsr = cpsr | (TOPPERS_irq_fiq_mask&  (0x40|0x80));
-    set_sr(cpsr);
-#endif /* __thumb__ */
-}
-
-/*
- *  全割込みロック状態の制御
- */
-#define SIL_PRE_LOC   uint32_t TOPPERS_irq_fiq_mask
-#define SIL_LOC_INT() ((void)(TOPPERS_irq_fiq_mask = TOPPERS_disint()))
-#define SIL_UNL_INT() (TOPPERS_set_fiq_irq(TOPPERS_irq_fiq_mask))
-
-/*
- *  微少時間待ち
- */
-Inline void
-sil_dly_nse(ulong_t dlytim)
-{
-    register uint32_t r0 asm("r0") = (uint32_t) dlytim;    
-    Asm("bl _sil_dly_nse" : "=g"(r0) : "0"(r0) : "lr","cc");
-}
-
+extern void pl310_init(uint32_t aux_val, uint32_t aux_mask);
+extern void pl310_debug_set(uint32_t val);
 #endif /* TOPPERS_MACRO_ONLY */
 
-#endif /* TOPPERS_CORE_SIL_H */
+#endif /* PL310_H */

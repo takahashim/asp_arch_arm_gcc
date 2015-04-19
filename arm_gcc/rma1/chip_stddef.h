@@ -2,9 +2,7 @@
  *  TOPPERS Software
  *      Toyohashi Open Platform for Embedded Real-Time Systems
  * 
- *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
- *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2004-2010 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2007 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -36,96 +34,35 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_sil.h 2266 2011-11-22 09:40:42Z ertl-honda $
+ *  @(#) $Id: chip_stddef.h 2480 2013-02-21 13:15:21Z ertl-honda $
  */
 
 /*
- *  sil.hのコア依存部（ARM用）
+ *  t_stddef.hのチップ依存部（RMA1用）
+ *
+ *  このインクルードファイルは，t_stddef.hの先頭でインクルードされる．
+ *  他のファイルからは直接インクルードすることはない．他のインクルード
+ *  ファイルに先立って処理されるため，他のインクルードファイルに依存し
+ *  てはならない．
  */
 
-#ifndef TOPPERS_CORE_SIL_H
-#define TOPPERS_CORE_SIL_H
-
-#ifndef TOPPERS_MACRO_ONLY
-
-#ifdef __thumb__
-/*
- *  制御レジスタの操作関数
- */
+#ifndef TOPPERS_CHIP_STDDEF_H
+#define TOPPERS_CHIP_STDDEF_H
 
 /*
- *  ステータスレジスタ（CPSR）の現在値の読出し
+ *  ターゲットを識別するためのマクロの定義
  */
-extern uint32_t current_sr(void);
+#define TOPPERS_RMA1                /* システム略称 */
 
 /*
- *  ステータスレジスタ（CPSR）の現在値の変更
+ *  開発環境で共通な定義
  */
-extern void set_sr(uint32_t sr);
-#endif /* __thumb__ */
+#define TOPPERS_STDINT_TYPE1
+#include "gcc/tool_stddef.h"
 
 /*
- *  すべての割込み（FIQとIRQ）の禁止
+ *  ARMで共通な定義
  */
-Inline uint32_t
-TOPPERS_disint(void)
-{
-    uint32_t  cpsr;
-    uint32_t  irq_fiq_mask;
+#include "arm_gcc/common/core_stddef.h"
 
-#ifndef __thumb__
-    Asm("mrs  %0,CPSR" : "=r"(cpsr));
-    irq_fiq_mask = cpsr & (0x40|0x80);
-    cpsr |= (0x40|0x80);
-    Asm("msr CPSR, %0" : : "r"(cpsr) :"memory", "cc");
-#else /* __thumb__ */
-    cpsr = current_sr();
-    irq_fiq_mask = cpsr & (0x40|0x80);
-    cpsr |= (0x40|0x80);
-    set_sr(cpsr);
-#endif /* __thumb__ */
-
-    return(irq_fiq_mask);
-}
-
-/*
- *  FIQ,IRQの設定
- */
-Inline void
-TOPPERS_set_fiq_irq(uint32_t TOPPERS_irq_fiq_mask)
-{
-    uint32_t  cpsr;
-
-#ifndef __thumb__
-    Asm("mrs  %0,CPSR" : "=r"(cpsr));
-    cpsr = cpsr & ~(0x40|0x80);
-    cpsr = cpsr | (TOPPERS_irq_fiq_mask & (0x40|0x80));
-    Asm("msr CPSR, %0" : : "r"(cpsr):"memory", "cc");
-#else /* __thumb__ */
-    cpsr = current_sr();
-    cpsr = cpsr &  ~(0x40|0x80);
-    cpsr = cpsr | (TOPPERS_irq_fiq_mask&  (0x40|0x80));
-    set_sr(cpsr);
-#endif /* __thumb__ */
-}
-
-/*
- *  全割込みロック状態の制御
- */
-#define SIL_PRE_LOC   uint32_t TOPPERS_irq_fiq_mask
-#define SIL_LOC_INT() ((void)(TOPPERS_irq_fiq_mask = TOPPERS_disint()))
-#define SIL_UNL_INT() (TOPPERS_set_fiq_irq(TOPPERS_irq_fiq_mask))
-
-/*
- *  微少時間待ち
- */
-Inline void
-sil_dly_nse(ulong_t dlytim)
-{
-    register uint32_t r0 asm("r0") = (uint32_t) dlytim;    
-    Asm("bl _sil_dly_nse" : "=g"(r0) : "0"(r0) : "lr","cc");
-}
-
-#endif /* TOPPERS_MACRO_ONLY */
-
-#endif /* TOPPERS_CORE_SIL_H */
+#endif /* TOPPERS_CHIP_STDDEF_H */

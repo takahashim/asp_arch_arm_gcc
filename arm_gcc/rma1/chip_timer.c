@@ -3,9 +3,7 @@
  *      Toyohashi Open Platform for Embedded Real-Time Systems/
  *      Advanced Standard Profile Kernel
  * 
- *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
- *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2012 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,73 +35,98 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_config.c 2350 2012-04-29 04:32:20Z ertl-honda $
+ *  @(#) $Id: chip_timer.c 2495 2013-03-30 02:22:13Z ertl-honda $
  */
 
 /*
- *        コア依存モジュール（ARM用）
+ *  タイマドライバ（ARM PrimeCell Timer Module用）
  */
+
 #include "kernel_impl.h"
-#include "check.h"
-#include "task.h"
+#include "time_event.h"
+#include <sil.h>
+#include "target_timer.h"
 
 /*
- *  コンテキスト参照のための変数
+ *  タイマのクロックを保持する変数
+ *  target_initialize() で初期化される．
  */
-uint32_t excpt_nest_count;
+uint32_t timer_clock;
 
 /*
- *  プロセッサ依存の初期化
+ *  タイマの起動処理
  */
 void
-core_initialize()
+target_timer_initialize(intptr_t exinf)
 {
+	CLOCK    cyc = TO_CLOCK(TIC_NUME, TIC_DENO);
+
+#ifdef USE_CMT4
+	/* 32-bit, free-running, enable interrupt, RCLK/1 */
+	sil_wrh_mem((void*)CM4CSR, (CMxCSR_CMM|0x27));
+	sil_wrw_mem((void*)CM4COR, cyc);
+	sil_wrw_mem((void*)CM4CNT, 0);
+	sil_wrh_mem((void*)CM4STR, CMxSTR_STR5);
+#else /* !USE_CMT4 */
 	/*
-	 *  カーネル起動時は非タスクコンテキストとして動作させるため1に
-	 */ 
-	excpt_nest_count = 1;
+	 *  タイマ周期を設定し，タイマの動作を開始する．
+	 */
+	sil_wrb_mem((void*)TMU_TSTR,
+				(sil_reb_mem((void*)TMU_TSTR) & ~TMU_STR));  /* タイマ停止 */
+	assert(cyc <= MAX_CLOCK);             /* タイマ上限値のチェック */
+
+	sil_wrh_mem((void*)TMU_TCR, (TCR_UNIE | TCR_TPSC_4)); /* 分周比設定、割り込み許可 */
+	sil_wrw_mem((void*)TMU_TCOR, cyc); /* timer constantレジスタをセット */
+	sil_wrw_mem((void*)TMU_TCNT, cyc); /* カウンターをセット */
+
+	/* 割り込み要求をクリア */
+	sil_wrh_mem((void*)TMU_TCR,
+				(sil_reh_mem((void*)TMU_TCR) & ~TCR_UNF));
+
+	/* タイマスタート */
+	sil_wrb_mem((void*)TMU_TSTR,
+				(sil_reb_mem((void*)TMU_TSTR) | TMU_STR));
+#endif /* USE_CMT4 */
 }
 
 /*
- *  プロセッサ依存の終了処理
+ *  タイマの停止処理
  */
 void
-core_terminate(void)
+target_timer_terminate(intptr_t exinf)
 {
-
+#ifdef USE_CMT4
+	/* Stop timer */
+	sil_wrh_mem((void*)CM4STR, 0);
+	/* Clear interrupt request */
+	sil_wrh_mem((void*)CM4CSR,
+				sil_reh_mem((void*)CM4CSR) & ~(CMxCSR_CMF|CMxCSR_OVF));
+#else /* !USE_CMT4 */
+	/* タイマを停止 */
+	sil_wrb_mem((void*)TMU_TSTR,
+				(sil_reb_mem((void*)TMU_TSTR) & ~TMU_STR));
+	/* 割り込み要求をクリア */
+	sil_wrh_mem((void*)TMU_TCR,0);
+#endif /* USE_CMT4 */
 }
 
 /*
- *  CPU例外の発生状況のログ出力
- *
- *  CPU例外ハンドラの中から，CPU例外情報ポインタ（p_excinf）を引数とし
- *  て呼び出すことで，CPU例外の発生状況をシステムログに出力する．
- */
-#ifdef SUPPORT_XLOG_SYS
-
-void
-xlog_sys(void *p_excinf)
-{
-}
-
-#endif /* SUPPORT_XLOG_SYS */
-
-/*
- *  例外ベクタから直接実行するハンドラを登録
- */ 
-void
-x_install_exc(EXCNO excno, FP exchdr)
-{
-	*(((FP*)vector_ref_tbl) + excno) = exchdr;
-}
-
-#ifndef OMIT_DEFAULT_EXC_HANDLER
-/*
- * 未定義の例外が入った場合の処理
+ *  タイマ割込みハンドラ
  */
 void
-default_exc_handler(void){
-	syslog_0(LOG_EMERG, "Unregistered Exception occurs.");
-	ext_ker();
+target_timer_handler(void)
+{
+#ifdef USE_CMT4
+	/* Clear interrupt request */
+	sil_wrh_mem((void*)CM4CSR,
+				sil_reh_mem((void*)CM4CSR) & ~(CMxCSR_CMF|CMxCSR_OVF));
+#else /* !USE_CMT4 */
+	/* 割り込み要求をクリア */
+	sil_wrh_mem((void*)TMU_TCR,
+				(sil_reh_mem((void*)TMU_TCR) & ~TCR_UNF));
+#endif /* USE_CMT4 */
+
+	i_begin_int(INTNO_TIMER);
+	signal_time();                    /* タイムティックの供給 */
+	i_end_int(INTNO_TIMER);
 }
-#endif /* OMIT_DEFAULT_EXC_HANDLER */

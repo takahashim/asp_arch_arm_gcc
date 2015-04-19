@@ -1,5 +1,5 @@
 /*
- *  @(#) $Id: core_cfg1_out.h 2075 2011-05-09 03:47:09Z ertl-honda $
+ *  @(#) $Id: core_cfg1_out.h 2350 2012-04-29 04:32:20Z ertl-honda $
  */
 
 /*
@@ -8,13 +8,13 @@
 
 void sta_ker(void){}
 STK_T *const	_kernel_istkpt;
-                
-/* 
- *  オフセットファイルを生成するための定義 
- */ 
-const uint8_t   MAGIC_1 = 0x12; 
-const uint16_t  MAGIC_2 = 0x1234; 
-const uint32_t  MAGIC_4 = 0x12345678;
+
+/*
+ *  offset.hを生成するための定義
+ */
+const uint8_t		MAGIC_1 = 0x12;
+const uint16_t	MAGIC_2 = 0x1234;
+const uint32_t	MAGIC_4 = 0x12345678;
 
 const TCB	TCB_enatex = {
 	{ NULL, NULL },			/* task_queue */

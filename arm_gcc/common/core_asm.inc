@@ -1,10 +1,9 @@
 /*
- *  TOPPERS Software
- *      Toyohashi Open Platform for Embedded Real-Time Systems
+ *  TOPPERS/ASP Kernel
+ *      Toyohashi Open Platform for Embedded Real-Time Systems/
+ *      Advanced Standard Profile Kernel
  * 
- *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
- *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2004-2010 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -36,96 +35,31 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_sil.h 2266 2011-11-22 09:40:42Z ertl-honda $
+ *  @(#) $Id: core_asm.inc 2448 2013-02-05 12:27:28Z ertl-honda $
  */
+
+#ifndef TOPPERS_CORE_ASM_INC
+#define TOPPERS_CORE_ASM_INC
 
 /*
- *  sil.hのコア依存部（ARM用）
+ *  ディレクティブのマクロ定義
  */
-
-#ifndef TOPPERS_CORE_SIL_H
-#define TOPPERS_CORE_SIL_H
-
-#ifndef TOPPERS_MACRO_ONLY
-
-#ifdef __thumb__
-/*
- *  制御レジスタの操作関数
- */
+#define ASECTION(name) .section name,"a"
+#define ATEXT          .text
+#define AGLOBAL(name)  .global name
+#define AALIGN(x)      .align x
+#define ALONG          .long
+#define ALABEL(label)  label:
+#define AOR            |
+#define AWEAK(name)    .weak name
 
 /*
- *  ステータスレジスタ（CPSR）の現在値の読出し
+ *  セクション情報
  */
-extern uint32_t current_sr(void);
+#define DATA_START  __data_start
+#define IDATA_START __idata_start
+#define IDATA_END   __idata_end
+#define BSS_START   __bss_start
+#define BSS_END     __bss_end
 
-/*
- *  ステータスレジスタ（CPSR）の現在値の変更
- */
-extern void set_sr(uint32_t sr);
-#endif /* __thumb__ */
-
-/*
- *  すべての割込み（FIQとIRQ）の禁止
- */
-Inline uint32_t
-TOPPERS_disint(void)
-{
-    uint32_t  cpsr;
-    uint32_t  irq_fiq_mask;
-
-#ifndef __thumb__
-    Asm("mrs  %0,CPSR" : "=r"(cpsr));
-    irq_fiq_mask = cpsr & (0x40|0x80);
-    cpsr |= (0x40|0x80);
-    Asm("msr CPSR, %0" : : "r"(cpsr) :"memory", "cc");
-#else /* __thumb__ */
-    cpsr = current_sr();
-    irq_fiq_mask = cpsr & (0x40|0x80);
-    cpsr |= (0x40|0x80);
-    set_sr(cpsr);
-#endif /* __thumb__ */
-
-    return(irq_fiq_mask);
-}
-
-/*
- *  FIQ,IRQの設定
- */
-Inline void
-TOPPERS_set_fiq_irq(uint32_t TOPPERS_irq_fiq_mask)
-{
-    uint32_t  cpsr;
-
-#ifndef __thumb__
-    Asm("mrs  %0,CPSR" : "=r"(cpsr));
-    cpsr = cpsr & ~(0x40|0x80);
-    cpsr = cpsr | (TOPPERS_irq_fiq_mask & (0x40|0x80));
-    Asm("msr CPSR, %0" : : "r"(cpsr):"memory", "cc");
-#else /* __thumb__ */
-    cpsr = current_sr();
-    cpsr = cpsr &  ~(0x40|0x80);
-    cpsr = cpsr | (TOPPERS_irq_fiq_mask&  (0x40|0x80));
-    set_sr(cpsr);
-#endif /* __thumb__ */
-}
-
-/*
- *  全割込みロック状態の制御
- */
-#define SIL_PRE_LOC   uint32_t TOPPERS_irq_fiq_mask
-#define SIL_LOC_INT() ((void)(TOPPERS_irq_fiq_mask = TOPPERS_disint()))
-#define SIL_UNL_INT() (TOPPERS_set_fiq_irq(TOPPERS_irq_fiq_mask))
-
-/*
- *  微少時間待ち
- */
-Inline void
-sil_dly_nse(ulong_t dlytim)
-{
-    register uint32_t r0 asm("r0") = (uint32_t) dlytim;    
-    Asm("bl _sil_dly_nse" : "=g"(r0) : "0"(r0) : "lr","cc");
-}
-
-#endif /* TOPPERS_MACRO_ONLY */
-
-#endif /* TOPPERS_CORE_SIL_H */
+#endif /* TOPPERS_CORE_ASM_INC */
