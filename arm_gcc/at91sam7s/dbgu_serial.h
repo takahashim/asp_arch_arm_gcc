@@ -36,7 +36,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: dbgu_serial.h 948 2008-04-14 08:34:27Z ertl-honda $
+ *  @(#) $Id: dbgu_serial.h 1560 2009-05-18 13:03:14Z ertl-honda $
  */
 
 /*
@@ -92,7 +92,7 @@ extern void sio_cls_por(SIOPCB *p_siopcb);
 /*
  *  SIOの割込みハンドラ
  */
-extern void sio_isr(ID siopid);
+extern void sio_isr(intptr_t exinf);
 
 /*
  *  シリアルI/Oポートへの文字送信
