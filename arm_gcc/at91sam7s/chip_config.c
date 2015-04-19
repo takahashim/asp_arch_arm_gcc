@@ -36,7 +36,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: chip_config.c 948 2008-04-14 08:34:27Z ertl-honda $
+ *  @(#) $Id: chip_config.c 1560 2009-05-18 13:03:14Z ertl-honda $
  */
 
 /*
@@ -137,6 +137,18 @@ target_initialize(void)
 void
 target_exit(void)
 {
+    extern void    software_term_hook(void);
+    void (*volatile fp)(void) = software_term_hook;
+
+   /*
+     *  software_term_hookへのポインタを，一旦volatile指定のあるfpに代
+     *  入してから使うのは，0との比較が最適化で削除されないようにするた
+     *  めである．
+     */
+    if (fp != 0) {
+        (*fp)();
+    }
+
     /*
      *  ARM依存の終了処理
      */

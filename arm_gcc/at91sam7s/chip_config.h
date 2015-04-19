@@ -36,7 +36,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: chip_config.h 948 2008-04-14 08:34:27Z ertl-honda $
+ *  @(#) $Id: chip_config.h 1560 2009-05-18 13:03:14Z ertl-honda $
  */
 
 /*
@@ -333,25 +333,6 @@ extern void target_initialize(void);
 extern void target_exit(void) NoReturn;
 
 /*
- *  atexitの処理とデストラクタの実行
- */
-Inline void
-call_atexit(void)
-{
-    extern void    software_term_hook(void);
-    void (*volatile fp)(void) = software_term_hook;
-
-    /*
-     *  software_term_hookへのポインタを，一旦volatile指定のあるfpに代
-     *  入してから使うのは，0との比較が最適化で削除されないようにするた
-     *  めである．
-     */
-    if (fp != 0) {
-        (*fp)();
-    }
-}
-
-/*
  *  割込みハンドラ（chip_support.S）
  */
 extern void interrupt_handler(void);
@@ -360,7 +341,6 @@ extern void interrupt_handler(void);
  *  未定義の割込みが入った場合の処理
  */
 extern void default_int_handler(void);
-
 
 #endif /* TOPPERS_MACRO_ONLY */
 

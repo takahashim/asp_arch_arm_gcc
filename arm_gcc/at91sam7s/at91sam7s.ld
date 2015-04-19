@@ -1,5 +1,5 @@
 /*
- *  @(#) $Id: at91sam7s.ld 365 2007-07-18 12:43:16Z honda $
+ *  @(#) $Id: at91sam7s.ld 1504 2009-04-08 01:20:12Z ertl-honda $
  */
 
 OUTPUT_FORMAT("elf32-littlearm", "elf32-bigarm","elf32-littlearm") 
@@ -39,12 +39,12 @@ SECTIONS
     _edata  =  . ;
     PROVIDE (edata = .);
     . = ALIGN(4);
-    __bss_start = .	;		
     .bss       :
     {
+      __bss_start = .	;
       *(.bss)
       *(COMMON)
-   . = ALIGN(32 / 8);
+      . = ALIGN(32 / 8);
     } > SRAM
 
    . = ALIGN(32 / 8);

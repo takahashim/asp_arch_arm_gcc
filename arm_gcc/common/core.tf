@@ -18,11 +18,6 @@ $
 $CHECK_STKSZ_ALIGN = 8$
 
 $ 
-$  ターゲット非依存部に含まれる標準の割込み管理機能の初期化処理を用いない
-$ 
-$OMIT_INITIALIZE_EXCEPTION = 1$
-
-$ 
 $  標準テンプレートファイルのインクルード
 $ 
 $INCLUDE "kernel/kernel.tf"$
