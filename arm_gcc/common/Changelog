@@ -1,16 +1,16 @@
-¡¦2008/04/15
-  ¡¦start.S 
-    ¡¦data¥»¥¯¥·¥ç¥ó¤Î½é´ü²½¤ò¾ÊÎ¬¤¹¤ë TOPPERS_OMIT_DATA_INIT ¤òÄÉ²Ã
-¡¦2008/04/12
-  ¡¦Èó°ÍÂ¸Éô 1.3.0 ÄÉ½¾
+ãƒ»2008/04/15
+  ãƒ»start.S 
+    ãƒ»dataã‚»ã‚¯ã‚·ãƒ§ãƒ³ã®åˆæœŸåŒ–ã‚’çœç•¥ã™ã‚‹ TOPPERS_OMIT_DATA_INIT ã‚’è¿½åŠ 
+ãƒ»2008/04/12
+  ãƒ»éžä¾å­˜éƒ¨ 1.3.0 è¿½å¾“
 
-¡¦2008/03/20
-  ¡¦Èó°ÍÂ¸Éô 1.2 ÄÉ½¾
+ãƒ»2008/03/20
+  ãƒ»éžä¾å­˜éƒ¨ 1.2 è¿½å¾“
 
-¡¦2007/12/25
-  ¡¦core_support.S
-    ¡¦OMIT_DEFAULT_IDLE ¤ò TOPPERS_CUSTOM_IDLE ¤ËÊÑ¹¹
-    ¡¦idle½èÍý¤Î¥Þ¥¯¥íÌ¾¤ò toppers_asm_custom_idle ¤ËÊÑ¹¹
+ãƒ»2007/12/25
+  ãƒ»core_support.S
+    ãƒ»OMIT_DEFAULT_IDLE ã‚’ TOPPERS_CUSTOM_IDLE ã«å¤‰æ›´
+    ãƒ»idleå‡¦ç†ã®ãƒžã‚¯ãƒ­åã‚’ toppers_asm_custom_idle ã«å¤‰æ›´
 
-  ¡¦start.S
-    ¡¦bss¤Î½é´ü²½¤ò¾ÊÎ¬¤¹¤ë TOPPERS_OMIT_BSS_INIT ¤òÄÉ²Ã
+  ãƒ»start.S
+    ãƒ»bssã®åˆæœŸåŒ–ã‚’çœç•¥ã™ã‚‹ TOPPERS_OMIT_BSS_INIT ã‚’è¿½åŠ 

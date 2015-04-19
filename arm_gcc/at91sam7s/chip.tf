@@ -1,43 +1,43 @@
 $ 
-$     �ѥ�2�Υ��åװ�¸�ƥ�ץ졼�ȡ�AT91SAM7S�ѡ�
+$     パス2のチップ依存テンプレート（AT91SAM7S用）
 $ 
 
 
 $ 
-$  ͭ���ʳ�����ֹ桤����ߥϥ�ɥ��ֹ桤CPU�㳰�ϥ�ɥ��ֹ�
+$  有効な割込み番号，割込みハンドラ番号，CPU例外ハンドラ番号
 $ 
 $INTNO_VALID = { 0,1,...,31 }$
 $INHNO_VALID = INTNO_VALID$
 
 $ 
-$  ATT_ISR�ǻ��ѤǤ��������ֹ�Ȥ�����б��������ߥϥ�ɥ��ֹ�
+$  ATT_ISRで使用できる割込み番号とそれに対応する割込みハンドラ番号
 $ 
 $INTNO_ATTISR_VALID = INTNO_VALID$
 $INHNO_ATTISR_VALID = INHNO_VALID$
 
 $ 
-$  DEF_INT�ǻ��ѤǤ������ߥϥ�ɥ��ֹ�
+$  DEF_INTで使用できる割込みハンドラ番号
 $ 
 $INHNO_DEFINH_VALID = INHNO_VALID$
 
 $ 
-$  CFG_INT�ǻ��ѤǤ��������ֹ�ȳ����ͥ����
+$  CFG_INTで使用できる割込み番号と割込み優先度
 $ 
 $INTNO_CFGINT_VALID  = INTNO_VALID$
 $INTPRI_CFGINT_VALID = { -1,-2,...,-7 }$
 
 $ 
-$  �����°����Υ������åȰ�¸���Ѥ���ӥå�
+$  割込み属性中のターゲット依存に用いるビット
 $ 
 $TARGET_INTATR = TA_HIGHLEVEL$
 
 $ 
-$  ������¸�ƥ�ץ졼�ȤΥ��󥯥롼�ɡ�ARM�ѡ�
+$  コア依存テンプレートのインクルード（ARM用）
 $ 
 $INCLUDE"arm_gcc/common/core.tf"$
 
 $ 
-$  �����ͥ���٥ơ��֥�
+$  割込み優先度テーブル
 $ 
 $FILE "kernel_cfg.c"$
 $NL$
@@ -54,7 +54,7 @@ $NL$};$NL$
 $NL$
 
 $ 
-$  ����ߥޥ����ơ��֥�
+$  割込みマスクテーブル
 $ 
 const uint32_t _kernel_ipm_mask_tbl[8]={$NL$
 $FOREACH intpri { 0,-1,...,-7 }$
@@ -71,7 +71,7 @@ $NL$
 
 
 $ 
-$  ����ߥϥ�ɥ�ơ��֥�
+$  割込みハンドラテーブル
 $ 
 $NL$
 const FP _kernel_inh_tbl[TNUM_INH] = {$NL$

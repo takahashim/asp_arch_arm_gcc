@@ -1,8 +1,8 @@
 $ 
-$ 		�p�X3�̃`�b�v�ˑ��e���v���[�g�iAT91SAM7S�p�j
+$ 		パス3のチップ依存テンプレート（AT91SAM7S用）
 $ 
 
 $ 
-$  �p�X3�̃R�A�ˑ��e���v���[�g�t�@�C���̃C���N���[�h
+$  パス3のコア依存テンプレートファイルのインクルード
 $ 
 $INCLUDE "arm_gcc/common/core_check.tf"$

@@ -3,26 +3,26 @@
 # 
 
 #
-#		Makefile д╬е│ев░═┬╕╔Їб╩ARM═╤б╦
+#		Makefile уБоуВ│уВвф╛ЭхнШщГия╝ИARMчФия╝Й
 #
 
 
 #
-#  е│еєе╤едеыеке╫е╖ечеє
+#  уВ│уГ│уГСуВдуГлуВкуГЧуВ╖уГзуГ│
 #
 INCLUDES := $(INCLUDES) -I$(SRCDIR)/arch/$(PRC)_$(TOOL)/common
 LIBS := $(LIBS) -lgcc
 
 
 #
-#  елб╝е═еыд╦┤╪д╣ды─ъ╡┴
+#  уВлуГ╝уГНуГлуБлщЦвуБЩуВЛхоЪч╛й
 #
 KERNEL_DIR := $(KERNEL_DIR):$(SRCDIR)/arch/$(PRC)_$(TOOL)/common
 KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) core_support.o
 KERNEL_COBJS := $(KERNEL_COBJS) core_config.o
 
 #
-#  ░═┬╕┤╪╖╕д╬─ъ╡┴
+#  ф╛ЭхнШщЦвф┐ВуБохоЪч╛й
 #
 kernel_cfg.timestamp: $(SRCDIR)/arch/$(PRC)_$(TOOL)/common/core.tf
 $(OBJFILE): $(SRCDIR)/arch/$(PRC)_$(TOOL)/common/core_check.tf

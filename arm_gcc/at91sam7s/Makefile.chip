@@ -3,25 +3,25 @@
 # 
 
 #
-#		Makefile д╬е┴е├е╫░═┬╕╔Їб╩AT91SAM7S═╤б╦
+#		Makefile уБоуГБуГГуГЧф╛ЭхнШщГия╝ИAT91SAM7SчФия╝Й
 #
 
 #
-#  е┴е├е╫╠╛бде│ев╠╛бд│л╚п┤─╢н╠╛д╬─ъ╡┴
+#  уГБуГГуГЧхРНя╝МуВ│уВвхРНя╝МщЦЛчЩ║чТ░хвГхРНуБохоЪч╛й
 #
 CHIP = at91sam7s
 PRC  = arm
 TOOL = gcc
 
 #
-#  е│еєе╤едеыеке╫е╖ечеє
+#  уВ│уГ│уГСуВдуГлуВкуГЧуВ╖уГзуГ│
 #
 INCLUDES := $(INCLUDES) -I$(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
 COPTS := $(COPTS) -mcpu=arm7tdmi -mlittle-endian -Wa,--gstabs 
 LDFLAGS := $(LDFLAGS) -mcpu=arm7tdmi  -N -mlittle-endian -L$(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
 
 #
-# е┴е├е╫д╬╝я╬рд╬╗╪─ъ
+# уГБуГГуГЧуБочиощбЮуБоцМЗхоЪ
 #
 ifeq ($(AT91SAM7S_TYPE),at91sam7s128)
 COPTS := $(COPTS) -D__AT91SAM7S128__ 
@@ -32,14 +32,14 @@ COPTS := $(COPTS) -D__AT91SAM7S256__
 endif
 
 #
-#  елб╝е═еыд╦┤╪д╣ды─ъ╡┴
+#  уВлуГ╝уГНуГлуБлщЦвуБЩуВЛхоЪч╛й
 #
 KERNEL_DIR := $(KERNEL_DIR) $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)
 KERNEL_ASMOBJS := $(KERNEL_ASMOBJS) chip_support.o
 KERNEL_COBJS := $(KERNEL_COBJS) chip_config.o chip_timer.o \
 
 #
-#  еъеєеле╣епеъе╫е╚д╬─ъ╡┴
+#  уГкуГ│уВлуВ╣уВпуГкуГЧуГИуБохоЪч╛й
 #
 ifeq ($(AT91SAM7S_TYPE),at91sam7s128)
 LDSCRIPT = $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/at91sam7s128.ld
@@ -50,10 +50,10 @@ LDSCRIPT = $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/at91sam7s256.ld
 endif
 
 #
-#  е╣е┐б╝е╚еве├е╫ете╕ехб╝еыд╦┤╪д╣ды─ъ╡┴
+#  уВ╣уВ┐уГ╝уГИуВвуГГуГЧуГвуВ╕уГеуГ╝уГлуБлщЦвуБЩуВЛхоЪч╛й
 #
-#  еъеєеле╣епеъе╫е╚д╦б╓STARTUP(start.o)б╫дЄ╡н╜╥д╖д┐д┐дсбде╣е┐б╝е╚еве├е╫ете╕ехб╝
-#  еыд╬╠╛┴░дЄHIDDEN_OBJSд╦─ъ╡┴д╣дыбед▐д┐бдLDFLAGSд╦-nostdlibдЄ─╔▓├д╖д╞дддыбе
+#  уГкуГ│уВлуВ╣уВпуГкуГЧуГИуБлуАМSTARTUP(start.o)уАНуВТшиШш┐░уБЧуБЯуБЯуВБя╝МуВ╣уВ┐уГ╝уГИуВвуГГуГЧуГвуВ╕уГеуГ╝
+#  уГлуБохРНхЙНуВТHIDDEN_OBJSуБлхоЪч╛йуБЩуВЛя╝ОуБ╛уБЯя╝МLDFLAGSуБл-nostdlibуВТш┐╜хКауБЧуБжуБДуВЛя╝О
 #
 HIDDEN_OBJS = start.o
 
@@ -67,13 +67,13 @@ $(HIDDEN_OBJS:.o=.d): %.d: %.S
 LDFLAGS := -nostdlib $(LDFLAGS)
 
 #
-#  ░═┬╕┤╪╖╕д╬─ъ╡┴
+#  ф╛ЭхнШщЦвф┐ВуБохоЪч╛й
 #
 cfg1_out.c: $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/chip_def.csv
 kernel_cfg.timestamp: $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/chip.tf
 $(OBJFILE): $(SRCDIR)/arch/$(PRC)_$(TOOL)/$(CHIP)/chip_check.tf
 
 #
-#  е│ев░═┬╕╔Їд╬едеєепеыб╝е╔
+#  уВ│уВвф╛ЭхнШщГиуБоуВдуГ│уВпуГлуГ╝уГЙ
 #
 include $(SRCDIR)/arch/$(PRC)_$(TOOL)/common/Makefile.core

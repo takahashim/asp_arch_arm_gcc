@@ -8,76 +8,76 @@
  *  Copyright (C) 2006-2008 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: core_config.h 848 2008-03-20 15:55:44Z honda $
  */
 
 
 /*
- *      ������¸�⥸�塼���ARM�ѡ�
+ *      コア依存モジュール（ARM用）
  *
- *  ���Υ��󥯥롼�ɥե�����ϡ�target_config.h�ʤޤ��ϡ��������饤��
- *  �롼�ɤ����ե�����ˤΤߤ��饤�󥯥롼�ɤ���롥¾�Υե����뤫��
- *  ľ�ܥ��󥯥롼�ɤ��ƤϤʤ�ʤ���
+ *  このインクルードファイルは，target_config.h（または，そこからインク
+ *  ルードされるファイル）のみからインクルードされる．他のファイルから
+ *  直接インクルードしてはならない．
  */
 
 #ifndef TOPPERS_CORE_CONFIG_H
 #define TOPPERS_CORE_CONFIG_H
 
 /*
- *  ARM��¸�����
+ *  ARM依存の定義
  */
 #include "arm.h"
 
 /*
- *  CPU���å��Ȥ���CPSR�Υѥ�����
+ *  CPUロックとするCPSRのパターン
  */
 #ifndef CPSR_CPULOCK
 #define CPSR_CPULOCK     (CPSR_IRQ_BIT)
 #endif  /* CPSR_CPULOCK */
 
 /*
- *  ����ߥ��å��Ȥ���CPSR�Υѥ�����
+ *  割込みロックとするCPSRのパターン
  */
 #define CPSR_INTLOCK     (CPSR_FIQ_BIT|CPSR_IRQ_BIT)
 
 /*
- *  CPSR�˾�˥��åȤ���ѥ�����
+ *  CPSRに常にセットするパターン
  */
 #ifndef CPSR_ALWAYS_SET
 #define CPSR_ALWAYS_SET  0x00
 #endif  /* CPSR_ALWAYS_SET */
 
 /*
- *  �㳰���ֹ�
+ *  例外の番号
  */
 #define EXCH_NO_RESET     0
 #define EXCH_NO_UNDEF     1
@@ -88,54 +88,54 @@
 #define EXCH_NO_FIQ       6
 
 /*
- *  �㳰�θĿ�
+ *  例外の個数
  */  
 #define TNUM_EXCH         7
 
 #ifndef TOPPERS_MACRO_ONLY
 
 /*
- *  �󥿥�������ƥ������ѤΥ����å������
+ *  非タスクコンテキスト用のスタック初期値
  */
 #define TOPPERS_ISTKPT(istk, istksz) ((STK_T *)((char_t *)(istk) + (istksz)))
 
 /*
- *  �ץ����å����ü�̿��Υ���饤��ؿ����
+ *  プロセッサの特殊命令のインライン関数定義
  */
 #include "core_insn.h"
 
 /*
- *  ����������ƥ����ȥ֥��å������
+ *  タスクコンテキストブロックの定義
  */
 typedef struct task_context_block {
-    void  *sp;       /* �����å��ݥ��� */
-    FP    pc;        /* �ץ�����५���� */
+    void  *sp;       /* スタックポインタ */
+    FP    pc;        /* プログラムカウンタ */
 } CTXB;
 
 
 /*
- *  TOPPERSɸ�����߽�����ǥ�μ¸�
+ *  TOPPERS標準割込み処理モデルの実現
  *
- *  IRQ�򥫡��ͥ�����⡤FIQ�򥫡��ͥ�������γ���ߤȤ��ư�����
+ *  IRQをカーネル管理内，FIQをカーネル管理外の割込みとして扱う．
  * 
- *  ARM��¸���Ǥϡ�TOPPERSɸ�����߽�����ǥ�Τ�����CPU���å�����
- *  �Τߤ��갷���������ͥ���٥ޥ�����������׵�ػߥե饰�˴ؤ���
- *  �ϡ��ƥ������åȰ�¸���Ǽ�갷��
+ *  ARM依存部では，TOPPERS標準割込み処理モデルのうち，CPUロック状態
+ *  のみを取り扱う．割込み優先度マスク，割込み要求禁止フラグに関して
+ *  は，各ターゲット依存部で取り扱う
  */
 
 /*
- *  ����ƥ����Ȼ��ȤΤ�����ѿ�
+ *  コンテキスト参照のための変数
  */
-extern uint32_t excpt_nest_count; /* �㳰�ʳ����/CPU�㳰�ˤΥͥ��Ȳ���Υ������ */
+extern uint32_t excpt_nest_count; /* 例外（割込み/CPU例外）のネスト回数のカウント */
 
 /*
- *  ����ƥ����Ȥλ���
+ *  コンテキストの参照
  *
- *  ARM�Ǥϡ�����������ƥ����Ȥ��󥿥�������ƥ����Ȥ�ξ���򥹡��ѡ�
- *  �Х������⡼�ɤ�ư����롥���Τ��ᡤCPSR�����ƤǤ�Ƚ�̤Ǥ��ʤ���
- *  ���Τ��ᡤ�㳰�ʳ����/CPU�㳰�ˤΥͥ��Ȳ���򥫥���Ȥ����ѿ�
- *  ��excpt_nest_count�ˤ��Ѱդ����㳰��������ǥ��󥯥���Ȥ��뤳��
- *  �ǡ�����ƥ����Ȥ�Ƚ�ꤹ�롥
+ *  ARMでは，タスクコンテキストと非タスクコンテキストの両方をスーパー
+ *  バイザーモードで動作させる．そのため，CPSRの内容では判別できない．
+ *  そのため，例外（割込み/CPU例外）のネスト回数をカウントする変数
+ *  （excpt_nest_count）を用意し，例外の入り口でインクリメントすること
+ *  で，コンテキストを判定する．
  */
 Inline bool_t
 sense_context(void)
@@ -144,13 +144,13 @@ sense_context(void)
 }
 
 /*
- *  CPU���å����֤ؤΰܹ�
+ *  CPUロック状態への移行
  */
 Inline void
 x_lock_cpu(void)
 {
     set_sr(current_sr() | CPSR_CPULOCK | CPSR_ALWAYS_SET);
-    /* ����ƥ����륻������������ǥ��꤬�񤭴�����ǽ�������� */
+    /* クリティカルセクションの前後でメモリが書き換わる可能性がある */
     Asm("":::"memory");
 }
 
@@ -158,12 +158,12 @@ x_lock_cpu(void)
 #define i_lock_cpu()   x_lock_cpu()
 
 /*
- *  CPU���å����֤β��
+ *  CPUロック状態の解除
  */
 Inline void
 x_unlock_cpu(void)
 {
-    /* ����ƥ����륻������������ǥ��꤬�񤭴�����ǽ�������� */
+    /* クリティカルセクションの前後でメモリが書き換わる可能性がある */
     Asm("":::"memory");
     set_sr((current_sr() & (~CPSR_CPULOCK)) | CPSR_ALWAYS_SET);
 }
@@ -172,7 +172,7 @@ x_unlock_cpu(void)
 #define i_unlock_cpu() x_unlock_cpu()
 
 /*
- *  CPU���å����֤λ���
+ *  CPUロック状態の参照
  */
 Inline bool_t
 x_sense_lock(void)
@@ -184,55 +184,55 @@ x_sense_lock(void)
 #define i_sense_lock()    x_sense_lock()
 
 /*
- *  �������ǥ����ѥå���
+ *  タスクディスパッチャ
  */
 
 /*
- *  �ǹ�ͥ���̥������ؤΥǥ����ѥå���core_support.S��
+ *  最高優先順位タスクへのディスパッチ（core_support.S）
  *
- *  dispatch�ϡ�����������ƥ����Ȥ���ƤӽФ��줿�����ӥ������������
- *  ��ƤӽФ��٤���Τǡ�����������ƥ����ȡ�CPU���å����֡��ǥ����ѥ�
- *  �����ľ��֡��ʥ�ǥ��Ρ˳����ͥ���٥ޥ�����������֤ǸƤӽФ���
- *  ����Фʤ�ʤ���
+ *  dispatchは，タスクコンテキストから呼び出されたサービスコール処理か
+ *  ら呼び出すべきもので，タスクコンテキスト・CPUロック状態・ディスパッ
+ *  チ許可状態・（モデル上の）割込み優先度マスク全解除状態で呼び出さな
+ *  ければならない．
  */
 extern void dispatch(void);
 
 /*
- *  �ǥ����ѥå����ư��ϡ�core_support.S��
+ *  ディスパッチャの動作開始（core_support.S）
  *
- *  start_dispatch�ϡ������ͥ뵯ư���˸ƤӽФ��٤���Τǡ����٤Ƥγ��
- *  �ߤ�ػߤ������֡ʳ���ߥ��å����֤�Ʊ���ξ��֡ˤǸƤӽФ��ʤ����
- *  �ʤ�ʤ���
+ *  start_dispatchは，カーネル起動時に呼び出すべきもので，すべての割込
+ *  みを禁止した状態（割込みロック状態と同等の状態）で呼び出さなければ
+ *  ならない．
  */
 extern void start_dispatch(void) NoReturn;
 
 /*
- *  ���ߤΥ���ƥ����Ȥ�ΤƤƥǥ����ѥå���core_support.S��
+ *  現在のコンテキストを捨ててディスパッチ（core_support.S）
  *
- *  exit_and_dispatch�ϡ�ext_tsk����ƤӽФ��٤���Τǡ�����������ƥ�
- *  ���ȡ�CPU���å����֡��ǥ����ѥå����ľ��֡��ʥ�ǥ��Ρ˳����ͥ��
- *  �٥ޥ�����������֤ǸƤӽФ��ʤ���Фʤ�ʤ���
+ *  exit_and_dispatchは，ext_tskから呼び出すべきもので，タスクコンテキ
+ *  スト・CPUロック状態・ディスパッチ許可状態・（モデル上の）割込み優先
+ *  度マスク全解除状態で呼び出さなければならない．
  */
 extern void exit_and_dispatch(void) NoReturn;
 
 /*
- *  �����ͥ�ν�λ�����θƽФ���core_support.S��
+ *  カーネルの終了処理の呼出し（core_support.S）
  *
- *  call_exit_kernel�ϡ������ͥ�ν�λ���˸ƤӽФ��٤���Τǡ��󥿥���
- *  ����ƥ����Ȥ��ڤ괹���ơ������ͥ�ν�λ������exit_kernel�ˤ�Ƥӽ�
- *  ����
+ *  call_exit_kernelは，カーネルの終了時に呼び出すべきもので，非タスク
+ *  コンテキストに切り換えて，カーネルの終了処理（exit_kernel）を呼び出
+ *  す．
  */
 extern void call_exit_kernel(void) NoReturn;
 
      
 /*
- *  ����������ƥ����Ȥν����
+ *  タスクコンテキストの初期化
  *
- *  ���������ٻ߾��֤���¹ԤǤ�����֤˰ܹԤ�����˸ƤФ�롥���λ���
- *  �ǥ����å��ΰ��ȤäƤϤʤ�ʤ���
+ *  タスクが休止状態から実行できる状態に移行する時に呼ばれる．この時点
+ *  でスタック領域を使ってはならない．
  *
- *  activate_context�򡤥���饤��ؿ��ǤϤʤ��ޥ�������Ȥ��Ƥ���Τϡ�
- *  ���λ����Ǥ�TCB���������Ƥ��ʤ�����Ǥ��롥
+ *  activate_contextを，インライン関数ではなくマクロ定義としているのは，
+ *  この時点ではTCBが定義されていないためである．
  */
 extern void    start_r(void);
 
@@ -244,22 +244,22 @@ extern void    start_r(void);
 }
 
 /*
- *  calltex�ϻ��Ѥ��ʤ�
+ *  calltexは使用しない
  */
 #define OMIT_CALLTEX
      
 /*
- *  CPU�㳰�ϥ�ɥ����Ͽ�ѥơ��֥�
+ *  CPU例外ハンドラの登録用テーブル
  */
 extern const FP exch_tbl[TNUM_EXCH];
 
 /*
- * �������å����¸���˴ޤޤ��ɸ����㳰������ǽ�ν�����������Ѥ��ʤ�
+ * ターゲット非依存部に含まれる標準の例外管理機能の初期化処理を用いない
  */
 #define OMIT_INITIALIZE_EXCEPTION
 
 /*
- * CPU�㳰�ϥ�ɥ�ν����
+ * CPU例外ハンドラの初期化
  */
 Inline void
 initialize_exception(void)
@@ -267,14 +267,14 @@ initialize_exception(void)
 }
 
 /*
- *  CPU�㳰��ȯ���������Υ����ƥ���֤λ���
+ *  CPU例外の発生した時のシステム状態の参照
  */
 
 /*
- *  CPU�㳰��ȯ���������Υ���ƥ����Ȥλ���
+ *  CPU例外の発生した時のコンテキストの参照
  *
- *  CPU�㳰��ȯ���������Υ���ƥ����Ȥ�������������ƥ����Ȥλ���false��
- *  �����Ǥʤ�����true���֤���
+ *  CPU例外の発生した時のコンテキストが，タスクコンテキストの時にfalse，
+ *  そうでない時にtrueを返す．
  */
 Inline bool_t
 exc_sense_context(void *p_excinf)
@@ -283,7 +283,7 @@ exc_sense_context(void *p_excinf)
 }
 
 /*
- *  CPU�㳰��ȯ����������(��ǥ���)�����ͥ���٥ޥ����λ���
+ *  CPU例外の発生した時の(モデル上の)割込み優先度マスクの参照
  */
 Inline uint8_t
 exc_get_ipm(void *p_excinf)
@@ -292,7 +292,7 @@ exc_get_ipm(void *p_excinf)
 }
 
 /*
- *  CPU�㳰��ȯ����������CPSR�μ���
+ *  CPU例外の発生した時のCPSRの取得
  */
 Inline uint32_t
 exc_get_sr(void *p_excinf){
@@ -300,7 +300,7 @@ exc_get_sr(void *p_excinf){
 }
 
 /*
- * CPU���å����֤�
+ * CPUロック状態か
  */
 Inline bool_t
 exc_sense_lock(void *p_excinf){
@@ -308,7 +308,7 @@ exc_sense_lock(void *p_excinf){
 }
 
 /*
- * ����ߥ��å����֤�
+ * 割込みロック状態か
  */
 Inline bool_t
 exc_sense_int_lock(void *p_excinf){
@@ -316,13 +316,13 @@ exc_sense_int_lock(void *p_excinf){
 }
 
 /*
- *  CPU�㳰��ȯ���������Υ���ƥ����Ȥȳ���ߤΥޥ������֤λ���
+ *  CPU例外の発生した時のコンテキストと割込みのマスク状態の参照
  *
- *  CPU�㳰��ȯ���������Υ����ƥ���֤��������ͥ�¹���Ǥʤ�����������
- *  ��ƥ����ȤǤ��ꡤ����ߥ��å����֤Ǥʤ���CPU���å����֤Ǥʤ����ʥ�
- *  �ǥ��Ρ˳����ͥ���٥ޥ�����������֤Ǥ������true�������Ǥʤ���
- *  ��false���֤���CPU�㳰�������ͥ�������γ���߽������ȯ���������
- *  �ˤ�false���֤��ˡ�
+ *  CPU例外の発生した時のシステム状態が，カーネル実行中でなく，タスクコ
+ *  ンテキストであり，割込みロック状態でなく，CPUロック状態でなく，（モ
+ *  デル上の）割込み優先度マスク全解除状態である時にtrue，そうでない時
+ *  にfalseを返す（CPU例外がカーネル管理外の割込み処理中で発生した場合
+ *  にもfalseを返す）．
  *
  */
 Inline bool_t
@@ -335,12 +335,12 @@ exc_sense_intmask(void *p_excinf)
 }
 
 /*
- *  CPU�㳰��ȯ���������Υ���ƥ����Ȥȳ���ߡ�CPU���å����֤λ���
+ *  CPU例外の発生した時のコンテキストと割込み／CPUロック状態の参照
  *
- *  CPU�㳰��ȯ���������Υ����ƥ���֤��������ͥ�¹���Ǥʤ�����������
- *  ��ƥ����ȤǤ��ꡤ����ߥ��å����֤Ǥʤ���CPU���å����֤Ǥʤ�����
- *  true�������Ǥʤ�����false���֤���CPU�㳰�������ͥ�������γ���߽�
- *  �����ȯ���������ˤ�false���֤��ˡ�
+ *  CPU例外の発生した時のシステム状態が，カーネル実行中でなく，タスクコ
+ *  ンテキストであり，割込みロック状態でなく，CPUロック状態でない時に
+ *  true，そうでない時にfalseを返す（CPU例外がカーネル管理外の割込み処
+ *  理中で発生した場合にもfalseを返す）．
  *
  */
 Inline bool_t
@@ -353,57 +353,57 @@ exc_sense_unlock(void *p_excinf)
 }
 
 /*
- *  �ץ����å���¸�ν����
+ *  プロセッサ依存の初期化
  */
 extern void core_initialize(void);
 
 /*
- *  �ץ����å���¸�ν�λ������
+ *  プロセッサ依存の終了時処理
  */
 extern void core_terminate(void);
 
 /*
- *  �٥������ơ��֥��̿�ᤫ�黲�Ȥ���른�����襢�ɥ쥹
- * ��start.S��
+ *  ベクターテーブルの命令から参照されるジャンプ先アドレス
+ * （start.S）
  */
 extern void *vector_ref_tbl;
 
 /*
- *  �㳰�٥�������ľ�ܼ¹Ԥ���ϥ�ɥ����Ͽ
+ *  例外ベクタから直接実行するハンドラを登録
  */ 
 extern void x_install_exc(EXCNO excno, FP exchdr);
 
 /*
- *  �㳰�ϥ�ɥ�
+ *  例外ハンドラ
  */
 
 /*
- *  ̤���̿�� �㳰�ϥ�ɥ��core_support.S��
+ *  未定義命令 例外ハンドラ（core_support.S）
  */
 extern void undef_handler(void);
 
 /*
- *  SWI �㳰�ϥ�ɥ��core_support.S��
+ *  SWI 例外ハンドラ（core_support.S）
  */
 extern void swi_handler(void);
 
 /*
- *  �ץ�ե��å����ܡ��� �㳰�ϥ�ɥ��core_support.S��
+ *  プリフェッチアボード 例外ハンドラ（core_support.S）
  */
 extern void prefetch_handler(void);
 
 /*
- *  �ǡ������ܡ��� �㳰�ϥ�ɥ��core_support.S��
+ *  データアボード 例外ハンドラ（core_support.S）
  */
 extern void data_abort_handler(void);
 
 /*
- *  FIQ �㳰�ϥ�ɥ��core_support.S��
+ *  FIQ 例外ハンドラ（core_support.S）
  */
 extern void fiq_handler(void);
 
 /*
- *  ̤������㳰�����ä����ν���
+ *  未定義の例外が入った場合の処理
  */
 extern void default_exc_handler(void);
 

@@ -1,9 +1,9 @@
 $ 
-$ 		ƒpƒX3‚ÌƒvƒƒZƒbƒTˆË‘¶ƒeƒ“ƒvƒŒ[ƒgiARM—pj
+$ 		ãƒ‘ã‚¹3ã®ãƒ—ãƒ­ã‚»ãƒƒã‚µä¾å­˜ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆï¼ˆARMç”¨ï¼‰
 $ 
 
 $ 
-$  ƒ`ƒFƒbƒN•û–@‚ÌŽw’è
+$  ãƒã‚§ãƒƒã‚¯æ–¹æ³•ã®æŒ‡å®š
 $ 
 $CHECK_FUNC_ALIGN = 4$
 $CHECK_FUNC_NONNULL = 1$
@@ -13,6 +13,6 @@ $CHECK_MPF_ALIGN = 4$
 $CHECK_MPF_NONNULL = 1$
 
 $ 
-$  •W€ƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹‚ÌƒCƒ“ƒNƒ‹[ƒh
+$  æ¨™æº–ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰
 $ 
 $INCLUDE "kernel/kernel_check.tf"$

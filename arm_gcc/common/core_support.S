@@ -8,69 +8,69 @@
  *  Copyright (C) 2006-2007 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: core_support.S 948 2008-04-14 08:34:27Z ertl-honda $
  */
 
 /*
- *        ������¸�⥸�塼�� ������֥��������ARM�ѡ�
+ *        コア依存モジュール アセンブリ言語部（ARM用）
  */
 
 #define TOPPERS_MACRO_ONLY
 #define TOPPERS_ASM_MACRO
-#define UINT_C(val)		(val)		/* uint_t�����������ޥ��� */
-#define ULONG_C(val)	(val)		/* ulong_t�����������ޥ��� */
+#define UINT_C(val)		(val)		/* uint_t型の定数を作るマクロ */
+#define ULONG_C(val)	(val)		/* ulong_t型の定数を作るマクロ */
 #include "kernel_impl.h"
 #include "offset.h"
 
 #ifdef VECTOR_KERNEL
 /*
- * �㳰�٥���
+ * 例外ベクタ
  */
     .section .vector,"a"
     .global vector_table
 vector_table:
-    ldr pc, reset_vector       /* �ꥻ�å�             */
-    ldr pc, undef_vector       /* ̤���̿��           */
-    ldr pc, swi_vector         /* ���եȥ����������   */
-    ldr pc, prefech_vector     /* �ץ�ե��å����ܡ��� */
-    ldr pc, data_abort_vector  /* �ǡ������ܡ���       */
+    ldr pc, reset_vector       /* リセット             */
+    ldr pc, undef_vector       /* 未定義命令           */
+    ldr pc, swi_vector         /* ソフトウェア割込み   */
+    ldr pc, prefech_vector     /* プリフェッチアボード */
+    ldr pc, data_abort_vector  /* データアボード       */
     ldr pc, reset_vector
     ldr pc, irq_vector         /* IRQ                  */
     ldr pc, fiq_vector         /* FIQ                  */
 
 
 /*
- *  �㳰�٥�����̿�ᤫ�黲�Ȥ����
- *  �������襢�ɥ쥹
+ *  例外ベクタの命令から参照される
+ *  ジャンプ先アドレス
  */
     .global vector_ref_tbl
 vector_ref_tbl:
@@ -91,7 +91,7 @@ fiq_vector:
 #endif
 
 /*
- *  �������ǥ����ѥå���
+ *  タスクディスパッチャ
  *
  */
     .text
@@ -99,104 +99,104 @@ fiq_vector:
     .globl dispatch
 dispatch:
     /*
-     *  ���Υ롼����ϡ�����������ƥ����ȡ�CPU���å����֡��ǥ����ѥå�
-     *  ���ľ��֡��ʥ�ǥ��Ρ˳����ͥ���٥ޥ�����������֤ǸƤӽФ�
-     *  ��롥
+     *  このルーチンは，タスクコンテキスト・CPUロック状態・ディスパッチ
+     *  許可状態・（モデル上の）割込み優先度マスク全解除状態で呼び出さ
+     *  れる．
      */
-    stmfd sp!, {r4 - r11,lr}           /* �쥸��������¸ */
-    ldr   r0, =p_runtsk                /* p_runtsk���ɤ߹��� */
+    stmfd sp!, {r4 - r11,lr}           /* レジスタの保存 */
+    ldr   r0, =p_runtsk                /* p_runtskを読み込む */
     ldr   r1, [r0]
-    str   sp, [r1,#TCB_sp]             /* �����������å�����¸ */
+    str   sp, [r1,#TCB_sp]             /* タスクスタックを保存 */
     adr   r2, dispatch_r
-    str   r2, [r1,#TCB_pc]             /* �¹ԺƳ����Ϥ���¸ */
+    str   r2, [r1,#TCB_pc]             /* 実行再開番地を保存 */
     b     dispatcher
 
 dispatch_r:
-    ldmfd sp!,{r4 - r11,lr}     /* �쥸���������� */
+    ldmfd sp!,{r4 - r11,lr}     /* レジスタの復帰 */
     /*
-     * �������㳰�����롼����ε�ư
-     * dispatcher����ƤӽФ���뤿�ᡤTCB�Υ��ɥ쥹��r1�����äƤ���
+     * タスク例外処理ルーチンの起動
+     * dispatcherから呼び出されるため，TCBのアドレスはr1に入っている
      */
     ldrb  r0,[r1,#TCB_enatex]
     tst   r0,#TCB_enatex_mask
-    beq   dispatch_r_1          /* enatex �� false �ʤ�꥿���� */
-    ldr   r0,[r1,#TCB_texptn]   /* texptn ��0�Ǥʤ����         */
+    beq   dispatch_r_1          /* enatex が false ならリターン */
+    ldr   r0,[r1,#TCB_texptn]   /* texptn が0でなければ         */
     tst   r0,r0                 
-    bne   call_texrtn           /* �������㳰�롼����θƤӽФ� */
+    bne   call_texrtn           /* タスク例外ルーチンの呼び出し */
 dispatch_r_1:   
     mov   pc,lr        
 
 
 /*
- *  �ǥ����ѥå����ư��ϡ�cpu_support.S��
+ *  ディスパッチャの動作開始（cpu_support.S）
  */
     .globl start_dispatch
 start_dispatch:
     /*
-     *  ���Υ롼����ϡ������ͥ뵯ư���ˡ����٤Ƥγ���ߤ�ػߤ�������
-     * �ʳ���ߥ��å����֤�Ʊ���ˤǸƤӽФ���롥�ޤ�������ߥ⡼�ɡ���
-     *  ����������ƥ����Ȥ�Ʊ���ˤǸƤӽФ���뤳�Ȥ����ꤷ�Ƥ��롥
+     *  このルーチンは，カーネル起動時に，すべての割込みを禁止した状態
+     * （割込みロック状態と同等）で呼び出される．また，割込みモード（非
+     *  タスクコンテキストと同等）で呼び出されることを想定している．
      *
-     *  dispatcher�ϡ�CPU���å����֡��ʥ�ǥ��Ρ˳����ͥ���٥ޥ�����
-     *  ������֡��㳰�ʳ����/CPU�㳰�ˤΥͥ��Ȳ��0�ǸƤӽФ���     
-     *  target_initialize�Ǥϡ��ʥ�ǥ��Ρ˳����ͥ���٥ޥ��������
-     *  �Ȥ��������ͥ�������γ���ߤǤ���FIQ����Ĥ��뤳�Ȥǡ�
-     *  CPU���å����֡��ʥ�ǥ��Ρ˳����ͥ���٥ޥ�����������֤ˤʤ롥
-     *  �ޤ���task_initialize��disdsp��false�˽�������Ƥ��뤿�ᡤ�ǥ�
-     *  ���ѥå����ľ��֤ˤʤäƤ��롥
+     *  dispatcherは，CPUロック状態，（モデル上の）割込み優先度マスク全
+     *  解除状態，例外（割込み/CPU例外）のネスト回数0で呼び出す．     
+     *  target_initializeでは，（モデル上の）割込み優先度マスク全解除
+     *  とし，カーネル管理外の割込みであるFIQを許可することで，
+     *  CPUロック状態・（モデル上の）割込み優先度マスク全解除状態になる．
+     *  また，task_initializeでdisdspをfalseに初期化しているため，ディ
+     *  スパッチ許可状態になっている．
      *  
      */    
-    msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) /* CPU���å����֤� */
-    ldr   r2, =excpt_nest_count            /* �㳰�ʳ����/CPU�㳰�ˤΥͥ��Ȳ�� */
-    mov   r0, #0                           /* ��0��                              */
+    msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) /* CPUロック状態へ */
+    ldr   r2, =excpt_nest_count            /* 例外（割込み/CPU例外）のネスト回数 */
+    mov   r0, #0                           /* を0に                              */
     str   r0, [r2]
     b     dispatcher_0
 
 /*
- *  ���ߤΥ���ƥ����Ȥ�ΤƤƥǥ����ѥå�
+ *  現在のコンテキストを捨ててディスパッチ
  */
     .globl exit_and_dispatch
 exit_and_dispatch:
-    /* �ǥ����ѥå������Ρ�dispatcher�ˤ� */    
+    /* ディスパッチャ本体（dispatcher）へ */    
 
 /*
- *  �ǥ����ѥå�������
+ *  ディスパッチャ本体
  */
 dispatcher:
     /*
-     *  ���Υ롼����ϡ�����������ƥ����ȡ�CPU���å����֡��ǥ����ѥå�
-     *  ���ľ��֡��ʥ�ǥ��Ρ˳����ͥ���٥ޥ�����������֤ǸƤӽФ�
-     *  ��롥�¹ԺƳ����Ϥؤ⤳�ξ��֤Τޤ�ʬ�����롥
+     *  このルーチンは，タスクコンテキスト・CPUロック状態・ディスパッチ
+     *  許可状態・（モデル上の）割込み優先度マスク全解除状態で呼び出さ
+     *  れる．実行再開番地へもこの状態のまま分岐する．
      *
-     *  ���ʤ���������ѡ��Х������⡼�ɡ�IRQ�ػߡ�disdsp��false��dspflg
-     *  ��true�ȤʤäƤ��롥�¹ԺƳ����Ϥؤ⤳�ξ��֤Τޤ�ʬ�����롥
+     *  すなわち，スーパーバイザーモード，IRQ禁止・disdspがfalse・dspflg
+     *  がtrueとなっている．実行再開番地へもこの状態のまま分岐する．
      */
 #ifdef LOG_DSP_ENTER
-    ldr   r1, =p_runtsk     /* p_runtsk��ѥ�᡼���� */
+    ldr   r1, =p_runtsk     /* p_runtskをパラメータに */
     ldr   r0, [r1]        
     bl    log_dsp_enter
 #endif /* LOG_DSP_ENTER */
 dispatcher_0:
-    ldr   r0, =p_schedtsk   /* p_schedtsk��p_runtsk�� */
+    ldr   r0, =p_schedtsk   /* p_schedtskをp_runtskに */
     ldr   r1, [r0]
     ldr   r2, =p_runtsk   
     str   r1, [r2]        
-    cmp   r1, #0            /* p_runtsk��NULL�ʤ�dispatcher_1�� */
+    cmp   r1, #0            /* p_runtskがNULLならdispatcher_1へ */
     beq   dispatcher_1             
-    ldr   sp, [r1,#TCB_sp]  /* �����������å������� */
+    ldr   sp, [r1,#TCB_sp]  /* タスクスタックを復帰 */
 #ifdef LOG_DSP_LEAVE
-    mov   r0, r1            /* p_runtsk��ѥ�᡼���� */
-    mov   r4, r1            /* r1�ϥ�����å��쥸�����ʤΤ���¸ */
+    mov   r0, r1            /* p_runtskをパラメータに */
+    mov   r4, r1            /* r1はスクラッチレジスタなので保存 */
     bl    log_dsp_leave
     mov   r1, r4
 #endif /* LOG_DSP_LEAVE */
-    ldr   pc, [r1,#TCB_pc]  /* �¹ԺƳ����Ϥ�����   */    
+    ldr   pc, [r1,#TCB_pc]  /* 実行再開番地を復帰   */    
 dispatcher_1:
     /*
-     * CPU���å����֤β���ȡ��󥿥�������ƥ����ȼ¹Ծ��֤ؤ�
-     * �����򤹤�
+     * CPUロック状態の解除と，非タスクコンテキスト実行状態への
+     * 準備をする
      */
-    ldr   r0, =_kernel_istk            /* �󥿥�������ƥ����ȤΥ����å��� */
+    ldr   r0, =_kernel_istk            /* 非タスクコンテキストのスタックへ */
     ldr   sp, [r0]    
     ldr   r1, =_kernel_istksz
     ldr   r3, [r1]
@@ -207,28 +207,28 @@ dispatcher_1:
     mov   r1, #1
 dispatcher_2:
     /*
-     *  ����ߤ���Ĥ����󥿥�������ƥ����ȼ¹Ծ��֤Ȥ�����ߤ��Ԥġ�
+     *  割込みを許可し，非タスクコンテキスト実行状態とし割込みを待つ．
      *
-     *  �������󥿥�������ƥ����ȼ¹Ծ��֤��ڤ괹����Τϡ�������ȯ��
-     *  �������߽����ˤɤΥ����å���Ȥ����Ȥ�������β��ȡ������
-     *  �ϥ�ɥ���ǤΥ������ǥ����ѥå����ɻߤȤ���2�Ĥΰ�̣�����롥
+     *  ここで非タスクコンテキスト実行状態に切り換えるのは，ここで発生
+     *  する割込み処理にどのスタックを使うかという問題の解決と，割込み
+     *  ハンドラ内でのタスクディスパッチの防止という2つの意味がある．
      *
-     *  �ץ����å��������Ԥ��˰ܹԤ���������ȡ�����ߵ��ĤȤϡ��Բ�
-     *  ʬ�˹Ԥʤ�ɬ�פ����롥
-     *  ������Բ�ʬ�˹Ԥʤ�ʤ���硤����ߤ���Ĥ���ľ��˳��
-     *  �ߤ����ꡤ������ǥ��������¹Բ�ǽ���֤ˤʤ�ȡ��¹Ԥ��٤�����
-     *  ��������ˤ⤫����餺�ץ����å���������Ԥ��ˤʤäƤ��ޤ���
+     *  プロセッサを割込み待ちに移行させる処理と，割込み許可とは，不可
+     *  分に行なう必要がある．
+     *  これを不可分に行なわない場合，割込みを許可した直後に割込
+     *  みが入り，その中でタスクが実行可能状態になると，実行すべきタス
+     *  クがあるにもかかわらずプロセッサが割込み待ちになってしまう．
      *
-     *  ������Ԥ��δ֤ϡ�p_runtsk��NULL�ʡ�0�ˤ����ꤷ�ʤ���Фʤ��
-     *  �������Τ褦�����ꤷ�ʤ��ȡ�����ߥϥ�ɥ餫��iget_tid��Ƥӽ�
-     *  �����ݤ�ư����ͤ˹��פ��ʤ��ʤ롥
+     *  割込み待ちの間は，p_runtskをNULL（＝0）に設定しなければならな
+     *  い．このように設定しないと，割込みハンドラからiget_tidを呼び出
+     *  した際の動作が仕様に合致しなくなる．
      *
-     *  �������åȤˤ�äƤϡ������ϥ⡼�����˰ܹԤ��뤿�ᡤɸ�����ˡ��
-     *  �ۤʤ��礬ɬ�פʾ�礬���롥
-     *  ���Τ褦�ʥ������åȤǤϡ��������åȰ�¸�ˤ����ơ�TOPPERS_CUSTOM_IDLE
-     *  ���������������֥�ޥ����Ȥ��ơ�toppers_asm_custom_idle ���Ѱ�
-     *  ����Ф褤��toppers_asm_custom_idle �ε��Ҥˤ����äƤϡ����Υ쥸
-     *  �����ϻ��ѤǤ��ʤ���
+     *  ターゲットによっては，省電力モード等に移行するため，標準の方法と
+     *  異なる手順が必要な場合がある．
+     *  そのようなターゲットでは，ターゲット依存において，TOPPERS_CUSTOM_IDLE
+     *  を定義し，アセンブラマクロとして，toppers_asm_custom_idle を用意
+     *  すればよい．toppers_asm_custom_idle の記述にあたっては，次のレジ
+     *  スタは使用できない．
      *     r0, r1, r2, r3, sp 
      *
      */
@@ -237,55 +237,55 @@ dispatcher_2:
 #ifdef TOPPERS_CUSTOM_IDLE
     toppers_asm_custom_idle
 #else
-    msr   cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET) /* �����ߵ���(�����ƥ�⡼��) */
+    msr   cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET) /* 割り込み許可(システムモード) */
     nop
-    msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) /* CPU���å�(�����ƥ�⡼��) */
+    msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) /* CPUロック(システムモード) */
 #endif /* TOPPERS_CUSTOM_IDLE */
 
-    ldr   r6, [r2]        /* reqflg��false�ʤ�dispatcher_2�� */
+    ldr   r6, [r2]        /* reqflgがfalseならdispatcher_2へ */
     cmp   r6, #0          
     beq   dispatcher_2                 
-    str   r0, [r2]        /* reqflg��false�� */
+    str   r0, [r2]        /* reqflgをfalseに */
     str   r0, [r3]        /* excpt_nest_count = 0 */
     b     dispatcher_0
 
 
 /*
- *  �����ͥ�ν�λ�����θƽФ�
+ *  カーネルの終了処理の呼出し
  *
- *  �⡼�ɤȥ����å����󥿥�������ƥ������Ѥ��ڤ��ؤ���
+ *  モードとスタックを非タスクコンテキスト用に切り替え．
  */
     .globl call_exit_kernel
 call_exit_kernel:
     msr   cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET) 
-    ldr  r0, =_kernel_istkpt       /* �󥿥�������ƥ����ȤΥ����å��� */
+    ldr  r0, =_kernel_istkpt       /* 非タスクコンテキストのスタックへ */
     ldr  sp, [r0]
     b     exit_kernel
 
 
 /*
- *  ���������ϻ�����
+ *  タスク開始時処理
  *
- *  dispatcher����ƤӽФ���뤿�ᡤTCB�Υ��ɥ쥹��r1�����äƤ���
+ *  dispatcherから呼び出されるため，TCBのアドレスはr1に入っている
  */
     .text
     .globl start_r
 start_r:
-    msr   cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET) /* CPU���å�������֤� */
-    ldr   lr, =ext_tsk                      /* ����������� */
-    ldr   r2, [r1, #TCB_p_tinib]            /* p_runtsk->p_tinib��r2��  */
-    ldr   r0, [r2, #TINIB_exinf]            /* exinf������쥸����r0��  */
-    ldr   r1, [r2, #TINIB_task]             /* ��������ư���Ϥ˥����� */
+    msr   cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET) /* CPUロック解除状態に */
+    ldr   lr, =ext_tsk                      /* 戻り番地設定 */
+    ldr   r2, [r1, #TCB_p_tinib]            /* p_runtsk->p_tinibをr2に  */
+    ldr   r0, [r2, #TINIB_exinf]            /* exinfを引数レジスタr0に  */
+    ldr   r1, [r2, #TINIB_task]             /* タスク起動番地にジャンプ */
     mov   pc, r1 
 
 
 /*
- *  ����ߥϥ�ɥ�/CPU�㳰�ϥ�ɥ�и�����
+ *  割込みハンドラ/CPU例外ハンドラ出口処理
  *
- *  ret_int�ϡ�����ߥϥ�ɥ餫����ä�ľ��˼¹Ԥ���롼����ǡ�
- *  ����ߥϥ�ɥ齪λ�塤�������åȰ�¸�ν�����¹Ԥ����塤
- *  �����ͥ�����γ���ߤ�ػߡ������å����������Υ����å��ˤ���
- *  ���֤ǸƤӽФ���롥
+ *  ret_intは，割込みハンドラから戻った直後に実行するルーチンで，
+ *  割込みハンドラ終了後，ターゲット依存の処理を実行した後，
+ *  カーネル管理の割込みを禁止，スタックを割込み前のスタックにした
+ *  状態で呼び出される．
  */
     .text
     .global ret_int
@@ -293,131 +293,131 @@ start_r:
 ret_int:
 ret_exc:
     /*
-     *  �㳰������ߤΥͥ��ȥ�����ȡ�excpt_nest_count)�Υǥ������
+     *  例外・割込みのネストカウント（excpt_nest_count)のデクリメント
      */        
     ldr   r0, =excpt_nest_count   /* r0 <-excpt_nest_count */
     ldr   r1, [r0]
     sub   r2, r1, #1
     str   r2, [r0]
-    cmp   r2, #0                  /* ����褬�󥿥�������ƥ����Ȥʤ� */
-    bne   ret_int_1               /* �����˥꥿����                   */
+    cmp   r2, #0                  /* 戻り先が非タスクコンテキストなら */
+    bne   ret_int_1               /* すぐにリターン                   */
 
     /*
-     *  reqflg������å��������˳���ߤ�ػߤ���Τϡ�reqflg������å�
-     *  ����ľ��˳���ߥϥ�ɥ餬��ư���졤������ǥǥ����ѥå����׵�
-     *  ���줿���ˡ������˥ǥ����ѥå�����ʤ��Ȥ������꤬�����뤿��
-     *  �Ǥ��롥
+     *  reqflgをチェックする前に割込みを禁止するのは，reqflgをチェック
+     *  した直後に割込みハンドラが起動され，その中でディスパッチが要求
+     *  された場合に，すぐにディスパッチされないという問題が生じるため
+     *  である．
      */
     ldr   r0, =reqflg
     ldr   r1, [r0]
-    cmp   r1, #0                  /* reqflg��true�Ǥ����ret_int_2�� */
+    cmp   r1, #0                  /* reqflgがtrueであればret_int_2へ */
     bne   ret_int_2
 ret_int_1:
     /*
-     *  ����߽�������Υ꥿����ˤ�ꡤCPU���å�������֤˰ܹԤ��ʤ����
-     *  �ʤ�ʤ���    
-     *  ARM�Ǥϡ�CPSR��IRQ�ӥåȤ�CPU���å�������֤Ȥ��뤿�ᡤñ�˥꥿����
-     *  ����Ф褤��
+     *  割込み処理からのリターンにより，CPUロック解除状態に移行しなければ
+     *  ならない．    
+     *  ARMでは，CPSRのIRQビットでCPUロック解除状態とするため，単にリターン
+     *  すればよい．
      */                
-    ldmfd sp!,{r1}              /* CPSR���������� */
-    msr   spsr, r1              /* ������cpsr��spsr������ */
-    ldmfd sp!,{r0-r3,ip,lr,pc}^ /* ����ƥ����Ȥ�������^�դ��ʤΤǡ�cpsr <- spsr */
+    ldmfd sp!,{r1}              /* CPSRの復帰処理 */
+    msr   spsr, r1              /* 戻り先のcpsrをspsrに設定 */
+    ldmfd sp!,{r0-r3,ip,lr,pc}^ /* コンテキストの復帰，^付きなので、cpsr <- spsr */
 
     
 ret_int_2:
 ret_int_3:
     /*
-     *  �����ؤϡ�CPU�㳰�ϥ�ɥ�νи����������ʬ�����Ƥ��롥
+     *  ここへは，CPU例外ハンドラの出口処理からも分岐してくる．
      *
-     *  �����Ǥϡ�����褬�������Ǥ��ꡤ�����å��ϡ������������å��ξ�
-     *  �˥�����å��쥸�����Τߤ���¸���줿���֤ˤʤäƤ��롥�ޤ���
-     *  �ץ����å��ϡ������ѡ��Х������⡼�ɡ������ͥ�����γ���ߤ�ػ�
-     *  �������֤ȤʤäƤ��롥
+     *  ここでは，戻り先がタスクであり，スタックは，タスクスタックの上
+     *  にスクラッチレジスタのみが保存された状態になっている．また，
+     *  プロセッサは，スーパーバイザーモード・カーネル管理の割込みを禁止
+     *  した状態となっている．
      */    
-    ldr   r0, =reqflg    /* reqflg��false�� */
+    ldr   r0, =reqflg    /* reqflgをfalseに */
     mov   r1, #0
     str   r1, [r0]
     /*
-     *  CPU���å����֤˰ܹԤ��롥
+     *  CPUロック状態に移行する．
      *
-     *  ���λ�����CPU���å����֤Ȥ���Τϡ�dispatcher��ʬ��������ȡ�
-     *  call_texrtn��ƤӽФ����ˡ�CPU���å����֤ˤʤäƤ���ɬ�פ�����
-     *  ����Ǥ��롥
+     *  この時点でCPUロック状態とするのは，dispatcherへ分岐する時と，
+     *  call_texrtnを呼び出す時に，CPUロック状態になっている必要がある
+     *  ためである．
      *
-     *  ARM�Ǥϡ�CPSR��IRQ�ӥåȤ�CPU���å����֤�ɽ�����뤿�ᡤ�����Ǥϡ�
-     *  �ä˲���Ԥ�ʤ���
+     *  ARMでは，CPSRのIRQビットでCPUロック状態を表現するため，ここでは，
+     *  特に何も行わない．
      */
     
     /*
-     *  dspflg��false�Ǥ�����ȡ�p_runtsk��p_schedtsk��Ʊ�����ˤϡ�
-     *  �ǥ����ѥå���Ԥ�ʤ������Υ����å���ɬ�פʤΤϡ��������㳰��
-     *  ���롼����θƽФ���ɬ�פʾ��ˡ��ǥ����ѥå���ɬ�פʤ��Ƥ⡤
-     *  reqflg��true�ˤ��뤿��Ǥ��롥
+     *  dspflgがfalseである場合と，p_runtskとp_schedtskが同じ場合には，
+     *  ディスパッチを行わない．このチェックが必要なのは，タスク例外処
+     *  理ルーチンの呼出しが必要な場合に，ディスパッチが必要なくても，
+     *  reqflgをtrueにするためである．
      */
 
-    ldr   r0, =p_runtsk       /* p_runtsk ��r1���ɤ߹��� */
+    ldr   r0, =p_runtsk       /* p_runtsk をr1に読み込む */
     ldr   r1, [r0]
     ldr   r0, =dspflg
     ldr   r2, [r0]
-    cmp   r2, #0              /* dspflg��false�ʤ�ret_int_4�� */
+    cmp   r2, #0              /* dspflgがfalseならret_int_4へ */
     beq   ret_int_4
-    ldr   r0, =p_schedtsk     /* p_schedtsk ��r2���ɤ߹��� */
+    ldr   r0, =p_schedtsk     /* p_schedtsk をr2に読み込む */
     ldr   r2, [r0]
-    cmp   r1, r2              /* p_runtsk��p_schedtsk��Ʊ���ʤ� */
-    beq   ret_int_4           /*                    ret_int_4�� */
-    stmfd sp!, {r4-r11}       /* �Ĥ�Υ쥸��������¸ */
-    str   sp, [r1,#TCB_sp]    /* �����������å�����¸ */
-    adr   r0, ret_int_r       /* �¹ԺƳ����Ϥ���¸   */
+    cmp   r1, r2              /* p_runtskとp_schedtskが同じなら */
+    beq   ret_int_4           /*                    ret_int_4へ */
+    stmfd sp!, {r4-r11}       /* 残りのレジスタを保存 */
+    str   sp, [r1,#TCB_sp]    /* タスクスタックを保存 */
+    adr   r0, ret_int_r       /* 実行再開番地を保存   */
     str   r0, [r1,#TCB_pc]
     b     dispatcher
 
 ret_int_r: 
-    ldmfd sp!, {r4-r11}       /* �쥸���������� */    
+    ldmfd sp!, {r4-r11}       /* レジスタの復帰 */    
 ret_int_4:
     /*
-     *  enatex��true�ǡ�texptn��0�Ǥʤ���С��������㳰�����롼�����
-     *  �ƤӽФ���
-     *  dispatcher����ƤӽФ���뤿�ᡤTCB�Υ��ɥ쥹��r1�����äƤ���
+     *  enatexがtrueで，texptnが0でなければ，タスク例外処理ルーチンを
+     *  呼び出す．
+     *  dispatcherから呼び出されるため，TCBのアドレスはr1に入っている
      */
     ldrb  r0, [r1,#TCB_enatex]
     tst   r0, #TCB_enatex_mask
-    beq   ret_int_5              /* enatex �� false �ʤ� ret_int5�� */
-    ldr   r0, [r1,#TCB_texptn]   /* texptn�������               */
-    tst   r0, r0                 /* texptn ��0��̵�����         */
-    blne  call_texrtn            /* �������㳰�롼����θƤӽФ� */            
+    beq   ret_int_5              /* enatex が false なら ret_int5へ */
+    ldr   r0, [r1,#TCB_texptn]   /* texptnをロード               */
+    tst   r0, r0                 /* texptn が0で無ければ         */
+    blne  call_texrtn            /* タスク例外ルーチンの呼び出し */            
 ret_int_5:
     /*
-     *  ����߽�������Υ꥿����ˤ�ꡤCPU���å�������֤˰ܹԤ����
-     *  ���ˤ��롥ARM��CPSR��IRQ�ӥåȤˤ�ä�CPU���å����֤�ɽ���Ƥ�
-     *  �뤿�ᡤ���Τޤޥ꥿���󤹤�Ф褤��
+     *  割込み処理からのリターンにより，CPUロック解除状態に移行するよ
+     *  うにする．ARMはCPSRのIRQビットによってCPUロック状態を表してい
+     *  るため，そのままリターンすればよい．
      */        
-    ldmfd sp!, {r0}             /* spsr ������ */
-    msr   spsr,r0               /* ������cpsr��spsr������ */
-    ldmfd sp!,{r0-r3,ip,lr,pc}^ /* ������������ ^�դ��ʤΤǡ�cpsr <- spsr */    
+    ldmfd sp!, {r0}             /* spsr を復帰 */
+    msr   spsr,r0               /* 戻り先のcpsrをspsrに設定 */
+    ldmfd sp!,{r0-r3,ip,lr,pc}^ /* タスクに復帰 ^付きなので、cpsr <- spsr */    
     
 
 /*
- * CPU�㳰�ϥ�ɥ�
+ * CPU例外ハンドラ
  *
- * CPU�㳰�ϥ�ɥ�ϡ��󥿥�������ƥ����ȤǼ¹Ԥ��롥
+ * CPU例外ハンドラは，非タスクコンテキストで実行する．
  * 
  */
 
 /*
- *  ̤���̿�� �㳰�ϥ�ɥ�
+ *  未定義命令 例外ハンドラ
  */
     .text
     .align 2
     .global undef_handler
 undef_handler:
     /* 
-     *  ��������ư����⡼��(�����ѡ��Х������⡼��)��
+     *  タスクの動作時モード(スーパーバイザーモード)へ
      */
     msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) 
-    stmfd sp!, {r0-r3,ip,lr,pc} /* pc�ϥ��ߡ� */
+    stmfd sp!, {r0-r3,ip,lr,pc} /* pcはダミー */
 
     /*
-     * spsr��������Ϥ�������뤿���̤����⡼�ɤ�
+     * spsrと戻り番地を取得するために未定義モードへ
      */
     msr   cpsr, #(CPSR_UND|CPSR_CPULOCK|CPSR_ALWAYS_SET)
     mov   r0, lr
@@ -427,18 +427,18 @@ undef_handler:
 
 
 /*
- *  SWI �㳰�ϥ�ɥ�
+ *  SWI 例外ハンドラ
  */
     .text
     .align 2
     .global swi_handler
 swi_handler:
     /* 
-     *  ��������ư����⡼��(�����ѡ��Х������⡼��)��
-     *  ���������ѡ��Х������⡼�ɤ�����CPU���å����֤Ȥ���
+     *  タスクの動作時モード(スーパーバイザーモード)へ
+     *  元々スーパーバイザーモードだが，CPUロック状態とする
      */
     msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) 
-    stmfd sp!, {r0-r3,ip,lr,pc} /* pc�ϥ��ߡ� */
+    stmfd sp!, {r0-r3,ip,lr,pc} /* pcはダミー */
     mov   r0, lr
     mrs   r1, spsr    
     mov   r2, #EXCH_NO_SWI
@@ -446,20 +446,20 @@ swi_handler:
 
 
 /*
- *  �ץ�ե��å����ܡ��� �㳰�ϥ�ɥ�
+ *  プリフェッチアボード 例外ハンドラ
  */
     .text
     .align 2
     .global prefetch_handler
 prefetch_handler:
     /* 
-     *  ��������ư����⡼��(�����ѡ��Х������⡼��)��
+     *  タスクの動作時モード(スーパーバイザーモード)へ
      */
     msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) 
-    stmfd sp!, {r0-r3,ip,lr,pc} /* pc�ϥ��ߡ� */
+    stmfd sp!, {r0-r3,ip,lr,pc} /* pcはダミー */
 
     /*
-     * spsr��������Ϥ�������뤿��˥��ܡ��ȥ⡼�ɤ�
+     * spsrと戻り番地を取得するためにアボートモードへ
      */
     msr   cpsr, #(CPSR_ABT|CPSR_CPULOCK|CPSR_ALWAYS_SET)
     mov   r0, lr
@@ -469,20 +469,20 @@ prefetch_handler:
 
 
 /*
- *  �ǡ������ܡ��� �㳰�ϥ�ɥ�
+ *  データアボード 例外ハンドラ
  */
     .text
     .align 2
     .global data_abort_handler
 data_abort_handler:
     /* 
-     *  ��������ư����⡼��(�����ѡ��Х������⡼��)��
+     *  タスクの動作時モード(スーパーバイザーモード)へ
      */
     msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) 
-    stmfd sp!, {r0-r3,ip,lr,pc} /* pc�ϥ��ߡ� */
+    stmfd sp!, {r0-r3,ip,lr,pc} /* pcはダミー */
 
     /*
-     * spsr��������Ϥ�������뤿��˥��ܡ��ȥ⡼�ɤ�
+     * spsrと戻り番地を取得するためにアボートモードへ
      */
     msr   cpsr, #(CPSR_ABT|CPSR_CPULOCK|CPSR_ALWAYS_SET)
     mov   r0, lr
@@ -493,20 +493,20 @@ data_abort_handler:
 
 #ifndef TARGET_FIQ_HANDLER
 /*
- *  FIQ �㳰�ϥ�ɥ�
+ *  FIQ 例外ハンドラ
  */
     .text
     .align 2
     .global fiq_handler
 fiq_handler:
     /* 
-     *  ��������ư����⡼��(�����ѡ��Х������⡼��)��
+     *  タスクの動作時モード(スーパーバイザーモード)へ
      */
     msr   cpsr, #(CPSR_SVC|CPSR_FIQ_BIT|CPSR_CPULOCK|CPSR_ALWAYS_SET) 
-    stmfd sp!, {r0-r3,ip,lr,pc} /* pc�ϥ��ߡ� */
+    stmfd sp!, {r0-r3,ip,lr,pc} /* pcはダミー */
 
     /*
-     * spsr��������Ϥ�������뤿���FIQ�⡼�ɤ�
+     * spsrと戻り番地を取得するためにFIQモードへ
      */
     msr   cpsr, #(CPSR_FIQ|CPSR_FIQ_BIT|CPSR_CPULOCK|CPSR_ALWAYS_SET)
     mov   r0, lr
@@ -516,7 +516,7 @@ fiq_handler:
 #endif /* TARGET_FIQ_HANDLER */
 
 /*
- *  ���������Ԥ�
+ *  微少時間待ち
  */
     .globl _sil_dly_nse
 _sil_dly_nse:

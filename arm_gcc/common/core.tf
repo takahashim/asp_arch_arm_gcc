@@ -1,34 +1,34 @@
 $ 
-$     �ѥ�2�Υ�����¸�ƥ�ץ졼�ȡ�ARM�ѡ�
+$     パス2のコア依存テンプレート（ARM用）
 $ 
 
 $ 
-$ ͭ����CPU�㳰�ϥ�ɥ��ֹ�
+$ 有効なCPU例外ハンドラ番号
 $ 
 $EXCNO_VALID = { 1,2,3,4,6 }$
 
 $ 
-$  DEF_EXC�ǻ��ѤǤ���CPU�㳰�ϥ�ɥ��ֹ�
+$  DEF_EXCで使用できるCPU例外ハンドラ番号
 $ 
 $EXCNO_DEFEXC_VALID = EXCNO_VALID$
 
 $ 
-$  �����å���ˡ�λ���
+$  チェック方法の指定
 $ 
 $CHECK_STKSZ_ALIGN = 8$
 
 $ 
-$  �������å����¸���˴ޤޤ��ɸ��γ���ߴ�����ǽ�ν�����������Ѥ��ʤ�
+$  ターゲット非依存部に含まれる標準の割込み管理機能の初期化処理を用いない
 $ 
 $OMIT_INITIALIZE_EXCEPTION = 1$
 
 $ 
-$  ɸ��ƥ�ץ졼�ȥե�����Υ��󥯥롼��
+$  標準テンプレートファイルのインクルード
 $ 
 $INCLUDE "kernel/kernel.tf"$
 
 $ 
-$  �㳰�ϥ�ɥ�ơ��֥�
+$  例外ハンドラテーブル
 $ 
 $FILE "kernel_cfg.c"$
 $NL$

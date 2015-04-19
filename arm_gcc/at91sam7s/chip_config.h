@@ -7,70 +7,70 @@
  *  Copyright (C) 2007-2008 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: chip_config.h 948 2008-04-14 08:34:27Z ertl-honda $
  */
 
 /*
- *  ���åװ�¸�⥸�塼���AT91SAM7S�ѡ�
+ *  チップ依存モジュール（AT91SAM7S用）
  *
- *  �����ͥ�Υ��åװ�¸���Υ��󥯥롼�ɥե����롥kernel_impl.h�Υ���
- *  ���åȰ�¸���ΰ����դ��Ȥʤ롥
+ *  カーネルのチップ依存部のインクルードファイル．kernel_impl.hのター
+ *  ゲット依存部の位置付けとなる．
  */
 
 #ifndef TOPPERS_CHIP_CONFIG_H
 #define TOPPERS_CHIP_CONFIG_H
 
 /*
- *  ���åץ����ƥ�Υϡ��ɥ������񸻤����
+ *  チップシステムのハードウェア資源の定義
  */
 #include "at91sam7s.h"
 
 /*
- *  �٥������롼����򥫡��ͥ�ǻ��Ĥ������
+ *  ベクタールーチンをカーネルで持つかの定義
  */
 #define VECTOR_KERNEL
 
 /*
- *  �٥������롼���������ʤ����Υ٥��������ɥ쥹����Ƭ����
+ *  ベクタールーチンを持たない場合のベクターアドレスの先頭番地
  */ 
 #define VECTOR_START  0x00
 
 /*
- * ������Ԥ�̿��
+ * 割込み待ち命令
  */
 #define ASM_TARGET_WAIT_INTERRUPT nop
 
 /*
- *  ASP�����ͥ�ư����Υ���ޥåפȴ�Ϣ�������
+ *  ASPカーネル動作時のメモリマップと関連する定義
  */
 #define RAM_START       SRAM_BASE_ADDRESSS
 #define RAM_SIZE        SRAM_SIZE
@@ -78,27 +78,27 @@
 #define FIQ_DATA_SIZE   256U
 
 /*
- *  �ǥե���Ȥ��󥿥�������ƥ������ѤΥ����å��ΰ�����
+ *  デフォルトの非タスクコンテキスト用のスタック領域の定義
  */
 #define DEFAULT_ISTKSZ      0x1000U   /* 4KB */
 #define DEFAULT_ISTK        (void *)(RAM_START+RAM_SIZE-FIQ_DATA_SIZE - DEFAULT_ISTKSZ)
 
                                                    
 /*
- *  ���������Ԥ��Τ��������������SIL�Υ������åȰ�¸����
+ *  微少時間待ちのための定義（本来はSILのターゲット依存部）
  */
 #define SIL_DLY_TIM1    420
 #define SIL_DLY_TIM2    195
 
 /*
- *  ����ߥϥ�ɥ��ֹ�˴ؤ������
+ *  割込みハンドラ番号に関する定義
  */ 
 #define TMIN_INHNO 0U
 #define TMAX_INHNO 31U
 #define TNUM_INH   32U
 
 /*
- *  ������ֹ�˴ؤ������
+ *  割込み番号に関する定義
  */ 
 #define TMIN_INTNO 0U
 #define TMAX_INTNO 31U
@@ -107,9 +107,9 @@
 #ifndef TOPPERS_MACRO_ONLY
 
 /*
- *  ������ֹ���ϰϤ�Ƚ��
+ *  割込み番号の範囲の判定
  *
- *  �ӥåȥѥ���������Τ��ưפˤ��뤿��ˡ�8�Ϸ��֤ˤʤäƤ��롥
+ *  ビットパターンを求めるのを容易にするために，8は欠番になっている．
  */
 #define VALID_INTNO(intno) (TMIN_INTNO <= (intno) && (intno) <= TMAX_INTNO)
 #define VALID_INTNO_DISINT(intno)	VALID_INTNO(intno)
@@ -117,13 +117,13 @@
 #define VALID_INTNO_ATTISR(intno)   VALID_INTNO(intno)
 
 /*
- *  ����ߥϥ�ɥ����Ͽ�ѥơ��֥�
- *   ���֤ϥ���ե�����졼������������ 
+ *  割込みハンドラの登録用テーブル
+ *   実態はコンフィギュレータで生成する 
  */
 extern const FP inh_tbl[TNUM_INH];
 
 /*
- *  ����ߥϥ�ɥ������
+ *  割込みハンドラの設定
  */
 Inline void
 x_define_inh(INHNO inhno, FP int_entry)
@@ -131,56 +131,56 @@ x_define_inh(INHNO inhno, FP int_entry)
 }
 
 /*
- *  ����ߥϥ�ɥ�ν����������������ޥ���
+ *  割込みハンドラの出入口処理の生成マクロ
  *
  */
 #define INT_ENTRY(inhno, inthdr)    inthdr
 #define INTHDR_ENTRY(inhno, inhno_num, inthdr) extern void inthdr(void);
 
 /*
- *  TOPPERSɸ�����߽�����ǥ�μ¸�
+ *  TOPPERS標準割込み処理モデルの実現
  */
 
 /*
- * �Ƴ���ߤγ�����׵�ػߥե饰�ξ���
+ * 各割込みの割込み要求禁止フラグの状態
  */
 extern uint32_t idf;
 
 /*
- *  �����ͥ���٥ޥ������饤�֥��
+ *  割込み優先度マスク操作ライブラリ
  *
- *  AT91SAM7S�ϳ����ͥ���٥ޥ�����IRC��ǥϡ��ɥ�����Ū�˻��Ĥ���
- *  ���եȥ�����¦�����ͤ��ɤ߽񤭤Ǥ��ʤ����ᡤ������׵�ػߥե�
- *  ���ˤ������ͥ���٥ޥ�����¸�����
+ *  AT91SAM7Sは割込み優先度マスクをIRC内でハードウェア的に持つが，
+ *  ソフトウェア側から値を読み書きできないため，割込み要求禁止フラ
+ *  グにより割込み優先度マスクを実現する
  */
 
 /*
- *  ���ߤγ����ͥ���٥ޥ�������
+ *  現在の割込み優先度マスクの値
  */
 extern PRI ipm;
 
 /*
- *  �����ͥ���٥ޥ�����˥��åȤ��롤������׵�ػߥե饰����
- *  �Υơ��֥�
+ *  割込み優先度マスク毎にセットする，割込み要求禁止フラグの値
+ *  のテーブル
  */
 extern const uint32_t ipm_mask_tbl[8];
 
 #endif /* TOPPERS_MACRO_ONLY */  
 
 /*
- *  IPM��imp_mask_tbl�Υ���ǥå������Ѵ�����ޥ���
+ *  IPMをimp_mask_tblのインデックスに変換するマクロ
  */
 #define INDEX_IPM(ipm)  (-(ipm))
 
 #ifndef TOPPERS_MACRO_ONLY
 
 /*
- *  (��ǥ���)�����ͥ���٥ޥ���������
+ *  (モデル上の)割込み優先度マスクの設定
  * 
- *  ���ꤵ�줿ͥ���٤����ꤵ�줿������׵�ػߥե饰�Υơ��֥���ͤȡʥ��
- *  ���Ρ˳Ƴ���ߤγ�����׵�ػߥե饰�ξ��֤��ݻ������ѿ����ͤȤ�
- *  OR��IRC�γ�����׵�ػߥե饰�˥��åȤ������ꤷ��ͥ���٤������ѿ�
- *  ipm����¸���롥
+ *  指定された優先度に設定された割込み要求禁止フラグのテーブルの値と（モデ
+ *  ル上の）各割込みの割込み要求禁止フラグの状態を保持した変数の値との
+ *  ORをIRCの割込み要求禁止フラグにセットし，設定した優先度を内部変数
+ *  ipmに保存する．
  */
 Inline void
 x_set_ipm(PRI intpri)
@@ -188,14 +188,14 @@ x_set_ipm(PRI intpri)
     uint32_t ipm_mask = ipm_mask_tbl[INDEX_IPM(intpri)];
 
     /*
-     *  AT91SAM7S�γ���ߥ���ȥ�����ϥ��͡��֥�쥸������
-     *  ���ꥢ���쥸���������뤿�ᡤ��ö���Ƥγ���ߤ�ػߤ��Ƥ��顤
-     *  ����γ���ߤΤߵ��Ĥ���ɬ�פ�����
+     *  AT91SAM7Sの割込みコントローラはイネーブルレジスタと
+     *  クリアーレジスタがあるため，一旦全ての割込みを禁止してから，
+     *  特定の割込みのみ許可する必要がある
      */
-    /* ������߶ػ� */
+    /* 全割込み禁止 */
     at91sam7s_disable_int(~0U);
 
-    /* �ޥ������ꤵ��Ƥ��ʤ�����ߤΤߵ��� */
+    /* マスク指定されていない割込みのみ許可 */
     at91sam7s_enable_int(~(ipm_mask|idf));
 
     ipm = intpri;
@@ -205,9 +205,9 @@ x_set_ipm(PRI intpri)
 #define i_set_ipm(intpri) x_set_ipm(intpri)
 
 /*
- *  (��ǥ���)�����ͥ���٥ޥ����λ���
+ *  (モデル上の)割込み優先度マスクの参照
  *
- *  ipm���ͤ��֤�
+ *  ipmの値を返す
  */
 Inline PRI
 x_get_ipm(void)
@@ -219,17 +219,17 @@ x_get_ipm(void)
 #define i_get_ipm() x_get_ipm()
 
 /*
- *  �����°�������ꤵ��Ƥ��뤫��Ƚ�̤��뤿����ѿ�
+ *  割込み属性が設定されているかを判別するための変数
  */
 extern uint32_t	bitpat_cfgint;
 
 /*
- * �ʥ�ǥ��Ρ˳�����׵�ػߥե饰�Υ��å�
+ * （モデル上の）割込み要求禁止フラグのセット
  *
- *  ���ꤵ�줿��������ֹ�γ�����׵�ػߥե饰�Υ��åȤ��ơ�����ߤ�
- *  �ػߤ��롥�ޤ����ʥ�ǥ��Ρ˳�����׵�ػߥե饰���������idf����
- *  ������ӥåȤ�򥻥åȤ��롥
- *  ������׵��ޥ������뵡ǽ�򥵥ݡ��Ȥ��Ƥ��ʤ����ˤϡ�false���֤�
+ *  指定された，割込み番号の割込み要求禁止フラグのセットして，割込みを
+ *  禁止する．また，（モデル上の）割込み要求禁止フラグを管理するidfの対
+ *  応するビットををセットする．
+ *  割込み要求をマスクする機能をサポートしていない場合には，falseを返す
  */
 Inline bool_t
 x_disable_int(INTNO intno)
@@ -246,12 +246,12 @@ x_disable_int(INTNO intno)
 #define i_disable_int(intno)  t_disable_int(intno)
 
 /* 
- * (��ǥ���)����׵�ػߥե饰�β��
+ * (モデル上の)割り要求禁止フラグの解除
  *
- * ���ꤵ�줿��������ֹ�γ�����׵�ػߥե饰�Υ��ꥢ���ơ�����ߤ�
- * ���Ĥ��롥�ޤ����ʥ�ǥ��Ρ˳�����׵�ػߥե饰���������idf����
- * ������ӥåȤ�򥯥ꥢ���롥
- * ������׵��ޥ������뵡ǽ�򥵥ݡ��Ȥ��Ƥ��ʤ����ˤϡ�false���֤�
+ * 指定された，割込み番号の割込み要求禁止フラグのクリアして，割込みを
+ * 許可する．また，（モデル上の）割込み要求禁止フラグを管理するidfの対
+ * 応するビットををクリアする．
+ * 割込み要求をマスクする機能をサポートしていない場合には，falseを返す
  */
 Inline bool_t
 x_enable_int(INTNO intno)
@@ -268,7 +268,7 @@ x_enable_int(INTNO intno)
 #define i_enable_int(intno) x_enable_int(intno)
 
 /*
- * ������׵�Υ��ꥢ
+ * 割込み要求のクリア
  */
 Inline void
 x_clear_int(INTNO intno)
@@ -281,7 +281,7 @@ x_clear_int(INTNO intno)
 
 
 /*
- *  ������׵�Υ����å�
+ *  割込み要求のチェック
  */
 Inline bool_t
 x_probe_int(INTNO intno)
@@ -293,15 +293,15 @@ x_probe_int(INTNO intno)
 #define i_probe_int(intno) x_probe_int(intno)
 
 /*
- *  ������׵�饤���°��������
+ *  割込み要求ラインの属性の設定
  *
  */
 extern void    x_config_int(INTNO intno, ATR intatr, PRI intpri);
 
 /*
- *  ����ߥϥ�ɥ���������ɬ�פ�IRC���
+ *  割込みハンドラの入り口で必要なIRC操作
  *
- *  AT91SAM7S�Ǥϡ�ɬ�פʽ����Ϥʤ�
+ *  AT91SAM7Sでは，必要な処理はない
  */
 Inline void
 i_begin_int(INTNO intno)
@@ -310,9 +310,9 @@ i_begin_int(INTNO intno)
 }
 
 /*
- *  ����ߥϥ�ɥ�νи���ɬ�פ�IRC���
+ *  割込みハンドラの出口で必要なIRC操作
  *
- *  AT91SAM7S�Ǥϡ�ɬ�פʽ����Ϥʤ�
+ *  AT91SAM7Sでは，必要な処理はない
  */
 Inline void
 i_end_int(INTNO intno)
@@ -321,19 +321,19 @@ i_end_int(INTNO intno)
 }
 
 /*
- *  �������åȥ����ƥ��¸�ν����
+ *  ターゲットシステム依存の初期化
  */
 extern void target_initialize(void);
 
 /*
- *  �������åȥ����ƥ�ν�λ
+ *  ターゲットシステムの終了
  *
- *  �����ƥ��λ������˻Ȥ���
+ *  システムを終了する時に使う．
  */
 extern void target_exit(void) NoReturn;
 
 /*
- *  atexit�ν����ȥǥ��ȥ饯���μ¹�
+ *  atexitの処理とデストラクタの実行
  */
 Inline void
 call_atexit(void)
@@ -342,9 +342,9 @@ call_atexit(void)
     void (*volatile fp)(void) = software_term_hook;
 
     /*
-     *  software_term_hook�ؤΥݥ��󥿤򡤰�övolatile����Τ���fp����
-     *  �����Ƥ���Ȥ��Τϡ�0�Ȥ���Ӥ���Ŭ���Ǻ������ʤ��褦�ˤ��뤿
-     *  ��Ǥ��롥
+     *  software_term_hookへのポインタを，一旦volatile指定のあるfpに代
+     *  入してから使うのは，0との比較が最適化で削除されないようにするた
+     *  めである．
      */
     if (fp != 0) {
         (*fp)();
@@ -352,12 +352,12 @@ call_atexit(void)
 }
 
 /*
- *  ����ߥϥ�ɥ��chip_support.S��
+ *  割込みハンドラ（chip_support.S）
  */
 extern void interrupt_handler(void);
 
 /*
- *  ̤����γ���ߤ����ä����ν���
+ *  未定義の割込みが入った場合の処理
  */
 extern void default_int_handler(void);
 
@@ -365,7 +365,7 @@ extern void default_int_handler(void);
 #endif /* TOPPERS_MACRO_ONLY */
 
 /*
- *  ������¸�⥸�塼���ARM�ѡ�
+ *  コア依存モジュール（ARM用）
  */
 #include "arm_gcc/common/core_config.h"
 

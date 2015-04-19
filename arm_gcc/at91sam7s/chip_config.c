@@ -7,62 +7,62 @@
  *  Copyright (C) 2007 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
- *  �嵭����Ԥϡ��ʲ���(1)��(4)�ξ������������˸¤ꡤ�ܥ��եȥ���
- *  �����ܥ��եȥ���������Ѥ�����Τ�ޤࡥ�ʲ�Ʊ���ˤ���ѡ�ʣ������
- *  �ѡ������ۡʰʲ������ѤȸƤ֡ˤ��뤳�Ȥ�̵���ǵ������롥
- *  (1) �ܥ��եȥ������򥽡��������ɤη������Ѥ�����ˤϡ��嵭������
- *      ��ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ��꤬�����Τޤޤη��ǥ���
- *      ����������˴ޤޤ�Ƥ��뤳�ȡ�
- *  (2) �ܥ��եȥ������򡤥饤�֥������ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ�����Ǻ����ۤ�����ˤϡ������ۤ�ȼ���ɥ�����ȡ�����
- *      �ԥޥ˥奢��ʤɡˤˡ��嵭�����ɽ�����������Ѿ�浪��Ӳ���
- *      ��̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *  (3) �ܥ��եȥ������򡤵�����Ȥ߹���ʤɡ�¾�Υ��եȥ�������ȯ�˻�
- *      �ѤǤ��ʤ����Ǻ����ۤ�����ˤϡ����Τ����줫�ξ�����������
- *      �ȡ�
- *    (a) �����ۤ�ȼ���ɥ�����ȡ����Ѽԥޥ˥奢��ʤɡˤˡ��嵭����
- *        �ɽ�����������Ѿ�浪��Ӳ�����̵�ݾڵ����Ǻܤ��뤳�ȡ�
- *    (b) �����ۤη��֤��̤�������ˡ�ˤ�äơ�TOPPERS�ץ��������Ȥ�
- *        ��𤹤뤳�ȡ�
- *  (4) �ܥ��եȥ����������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������뤤���ʤ�»
- *      ������⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ����դ��뤳�ȡ�
- *      �ޤ����ܥ��եȥ������Υ桼���ޤ��ϥ���ɥ桼������Τ����ʤ���
- *      ͳ�˴�Ť����ᤫ��⡤�嵭����Ԥ����TOPPERS�ץ��������Ȥ�
- *      ���դ��뤳�ȡ�
+ *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
+ *  ア（本ソフトウェアを改変したものを含む．以下同じ）を使用・複製・改
+ *  変・再配布（以下，利用と呼ぶ）することを無償で許諾する．
+ *  (1) 本ソフトウェアをソースコードの形で利用する場合には，上記の著作
+ *      権表示，この利用条件および下記の無保証規定が，そのままの形でソー
+ *      スコード中に含まれていること．
+ *  (2) 本ソフトウェアを，ライブラリ形式など，他のソフトウェア開発に使
+ *      用できる形で再配布する場合には，再配布に伴うドキュメント（利用
+ *      者マニュアルなど）に，上記の著作権表示，この利用条件および下記
+ *      の無保証規定を掲載すること．
+ *  (3) 本ソフトウェアを，機器に組み込むなど，他のソフトウェア開発に使
+ *      用できない形で再配布する場合には，次のいずれかの条件を満たすこ
+ *      と．
+ *    (a) 再配布に伴うドキュメント（利用者マニュアルなど）に，上記の著
+ *        作権表示，この利用条件および下記の無保証規定を掲載すること．
+ *    (b) 再配布の形態を，別に定める方法によって，TOPPERSプロジェクトに
+ *        報告すること．
+ *  (4) 本ソフトウェアの利用により直接的または間接的に生じるいかなる損
+ *      害からも，上記著作権者およびTOPPERSプロジェクトを免責すること．
+ *      また，本ソフトウェアのユーザまたはエンドユーザからのいかなる理
+ *      由に基づく請求からも，上記著作権者およびTOPPERSプロジェクトを
+ *      免責すること．
  * 
- *  �ܥ��եȥ������ϡ�̵�ݾڤ��󶡤���Ƥ����ΤǤ��롥�嵭����Ԥ�
- *  ���TOPPERS�ץ��������Ȥϡ��ܥ��եȥ������˴ؤ��ơ�����λ�����Ū
- *  ���Ф���Ŭ������ޤ�ơ������ʤ��ݾڤ�Ԥ�ʤ����ޤ����ܥ��եȥ���
- *  �������Ѥˤ��ľ��Ū�ޤ��ϴ���Ū�������������ʤ�»���˴ؤ��Ƥ⡤��
- *  ����Ǥ�����ʤ���
+ *  本ソフトウェアは，無保証で提供されているものである．上記著作権者お
+ *  よびTOPPERSプロジェクトは，本ソフトウェアに関して，特定の使用目的
+ *  に対する適合性も含めて，いかなる保証も行わない．また，本ソフトウェ
+ *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
+ *  の責任を負わない．
  * 
  *  @(#) $Id: chip_config.c 948 2008-04-14 08:34:27Z ertl-honda $
  */
 
 /*
- * ���åװ�¸�⥸�塼���AT91SAM7S�ѡ�
+ * チップ依存モジュール（AT91SAM7S用）
  */
 
 #include "kernel_impl.h"
 #include <sil.h>
 
 /*
- * �Ƴ���ߤγ�����׵�ػߥե饰�ξ���
+ * 各割込みの割込み要求禁止フラグの状態
  */
 uint32_t idf;
 
 /*
- * ���ߤγ����ͥ���٥ޥ�������
+ * 現在の割込み優先度マスクの値
  */
 PRI ipm;
  
 /*
- *  �����°�������ꤵ��Ƥ��뤫��Ƚ�̤��뤿����ѿ�
+ *  割込み属性が設定されているかを判別するための変数
  */
 uint32_t	bitpat_cfgint;
 
 /*
- *  �������åȰ�¸�ν����
+ *  ターゲット依存の初期化
  */
 void
 target_initialize(void)
@@ -70,21 +70,21 @@ target_initialize(void)
     int i;
     
     /*
-     *  ARM��¸�ν����
+     *  ARM依存の初期化
      */
     core_initialize();
 
 
     /*
-     * ��������ϻ��˳�����װ���Ƚ�ꤹ�뤿��SVR�˳�����ֹ�򥻥åȤ���
+     * 割込み入力時に割込み要因を判定するためSVRに割込み番号をセットする
      */
     /*
-     * ������߶ػ�
+     * 全割込み禁止
      */
     sil_wrw_mem((void*)(TADR_AIC_BASE+TOFF_AIC_ICCR), ~0U);
 
     /*
-     * EOICR�򥻥å�
+     * EOICRをセット
      */
     sil_wrw_mem((void*)(TADR_AIC_BASE+TOFF_AIC_EOICR), 0U);
     
@@ -94,28 +94,28 @@ target_initialize(void)
     }
     
     /*
-     * �Ƴ���ߤγ�����׵�ػߥե饰���ػ�
+     * 各割込みの割込み要求禁止フラグ全禁止
      */
     idf = ~0U;
 
     /*
-     * �����ͥ���٥ޥ�����0
+     * 割込み優先度マスクは0
      */ 
     ipm = 0U;
 
     /*
-     * ���Ƥγ���ߤ�ޥ���
+     * 全ての割込みをマスク
      */ 
     at91sam7s_disable_int(~0U);
 
     /*
-     *  �����°�������ꤵ��Ƥ��뤫��Ƚ�̤��뤿����ѿ����������롥
+     *  割込み属性が設定されているかを判別するための変数を初期化する．
      */
     bitpat_cfgint = 0U;
     
 #ifndef VECTOR_KERNEL    
     /*
-     *  �㳰�٥����ơ��֥�س���ߥϥ�ɥ����Ͽ
+     *  例外ベクタテーブルへ割込みハンドラを登録
      */
     x_install_exc(EXCH_NO_IRQ, interrupt_handler);
     x_install_exc(EXCH_NO_UNDEF, undef_handler);
@@ -126,29 +126,29 @@ target_initialize(void)
 #endif /* VECTOR_KERNEL */
      
     /*
-     *  target_fput_log ����ǽ�ˤʤ�褦��UART������
+     *  target_fput_log が可能になるようにUARTを初期化
      */
     at91sam7s_init_uart();    
 }
 
 /*
- *  �������åȰ�¸�ν�λ����
+ *  ターゲット依存の終了処理
  */
 void
 target_exit(void)
 {
     /*
-     *  ARM��¸�ν�λ����
+     *  ARM依存の終了処理
      */
     core_terminate();
 
     /*
-     *  ���٤Ƥγ���ߤ�ޥ������롥
+     *  すべての割込みをマスクする．
      */
     at91sam7s_disable_int(~0U);
 
     /*
-     *  ��ȯ�Ķ���¸�ν�λ����
+     *  開発環境依存の終了処理
      */
     at91sam7s_exit();
 
@@ -156,7 +156,7 @@ target_exit(void)
 }
 
 /*
- *  �������åȰ�¸��ʸ������
+ *  ターゲット依存の文字出力
  */
 void
 target_fput_log(char_t c)
@@ -168,11 +168,11 @@ target_fput_log(char_t c)
 }
 
 /*
- *  ������׵�饤���°��������
+ *  割込み要求ラインの属性の設定
  *
- *  ASP�����ͥ�Ǥ����Ѥ����ꤷ�ơ��ѥ�᡼�����顼�ϥ����������ǥ�����
- *  �����Ƥ��롥FI4�����ͥ�����Ѥ�����ˤϡ����顼���֤��褦�ˤ��٤�
- *  �Ǥ�������
+ *  ASPカーネルでの利用を想定して，パラメータエラーはアサーションでチェッ
+ *  クしている．FI4カーネルに利用する場合には，エラーを返すようにすべき
+ *  であろう．
  *
  */
 void
@@ -182,39 +182,39 @@ x_config_int(INTNO intno, ATR intatr, PRI intpri)
     assert(TMIN_INTPRI <= intpri && intpri <= TMAX_INTPRI);
 
 	/*
-	 *  �����°�������ꤵ��Ƥ��뤫��Ƚ�̤��뤿����ѿ�������
+	 *  割込み属性が設定されているかを判別するための変数の設定
 	 */
 	bitpat_cfgint |= INTNO_BITPAT(intno);
     
     /* 
-     * ���ä������ߤ�ػߤ���
+     * いったん割込みを禁止する
      */    
     x_disable_int(intno);
 
     /*
-     * ��٥�ȥꥬ/���å��ȥꥬ������
-     * IRQ�Τߥ��ݡ��Ȥ���
+     * レベルトリガ/エッジトリガの設定
+     * IRQのみサポートする
      */
     uint32_t smr_val;
 
     if((intatr & TA_POSEDGE) != 0U) {
         /*
-         * �ݥ��ƥ��֥��å�
+         * ポジティブエッジ
          */
         smr_val = AIC_SRCTYPE_EXT_POSITIVE_EDGE;
     }else if((intatr & TA_HIGHLEVEL) != 0U) {
         /*
-         * �ϥ���٥�ȥꥬ
+         * ハイレベルトリガ
          */
         smr_val = AIC_SRCTYPE_EXT_HIGH_LEVEL ;
     }else if((intatr & TA_EDGE) != 0U) {
         /*
-         * ���å��ȥꥬ
+         * エッジトリガ
          */
         smr_val = AIC_SRCTYPE_INT_EDGE_TRIGGERED;
     }else{
         /*
-         * ��٥�ȥꥬ
+         * レベルトリガ
          */
         smr_val = AIC_SRCTYPE_INT_LEVEL_SENSITIVE;
     }
@@ -228,7 +228,7 @@ x_config_int(INTNO intno, ATR intatr, PRI intpri)
 
 #ifndef OMIT_DEFAULT_INT_HANDLER
 /*
- * ̤����γ���ߤ����ä����ν���
+ * 未定義の割込みが入った場合の処理
  */
 void
 default_int_handler(void){
