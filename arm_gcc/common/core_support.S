@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2004 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2008 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2010 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_support.S 1427 2009-01-08 02:44:16Z ertl-honda $
+ *  @(#) $Id: core_support.S 2075 2011-05-09 03:47:09Z ertl-honda $
  */
 
 /*
@@ -51,7 +51,6 @@
 #include "kernel_impl.h"
 #include "offset.h"
 
-#ifdef VECTOR_KERNEL
 /*
  * 例外ベクタ
  */
@@ -88,7 +87,6 @@ irq_vector:
     .long   irq_handler
 fiq_vector:
     .long   fiq_handler
-#endif
 
 /*
  *  タスクディスパッチャ
@@ -120,11 +118,15 @@ dispatch_r:
     ldrb  r0,[r1,#TCB_enatex]
     tst   r0,#TCB_enatex_mask
     beq   dispatch_r_1          /* enatex が false ならリターン */
-    ldr   r0,[r1,#TCB_texptn]   /* texptn が0でなければ         */
+    ldr   r0,[r1,#TCB_texptn]   /* texptn が0ならリターン */
     tst   r0,r0                 
+    beq   dispatch_r_1          
+    ldr   r1, =ipmflg           /* ipmflgがfalseであればリターン */
+    ldr   r0, [r1]
+    tst   r0,r0
     bne   call_texrtn           /* タスク例外ルーチンの呼び出し */
 dispatch_r_1:
-    mov   pc,lr
+    bx    lr
 
 
 /*
@@ -142,7 +144,7 @@ start_dispatch:
      *  target_initializeでは，（モデル上の）割込み優先度マスク全解除
      *  とし，カーネル管理外の割込みであるFIQを許可することで，
      *  CPUロック状態・（モデル上の）割込み優先度マスク全解除状態になる．
-     *  また，task_initializeでdisdspをfalseに初期化しているため，ディ
+     *  また，initialize_taskでdisdspをfalseに初期化しているため，ディ
      *  スパッチ許可状態になっている．
      *  
      */    
@@ -190,7 +192,8 @@ dispatcher_0:
     bl    log_dsp_leave
     mov   r1, r4
 #endif /* LOG_DSP_LEAVE */
-    ldr   pc, [r1,#TCB_pc]  /* 実行再開番地を復帰   */    
+    ldr   r4, [r1,#TCB_pc]  /* 実行再開番地を復帰   */    
+    bx    r4
 dispatcher_1:
     /*
      * CPUロック状態の解除と，非タスクコンテキスト実行状態への
@@ -237,9 +240,9 @@ dispatcher_2:
 #ifdef TOPPERS_CUSTOM_IDLE
     toppers_asm_custom_idle
 #else
-    msr   cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET) /* 割り込み許可(システムモード) */
+    msr   cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET) /* 割り込み許可(スーパーバイザーモード) */
     nop
-    msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) /* CPUロック(システムモード) */
+    msr   cpsr, #(CPSR_SVC|CPSR_CPULOCK|CPSR_ALWAYS_SET) /* CPUロック(スーパーバイザーモード) */
 #endif /* TOPPERS_CUSTOM_IDLE */
 
     ldr   r6, [r2]        /* reqflgがfalseならdispatcher_2へ */
@@ -276,7 +279,7 @@ start_r:
     ldr   r2, [r1, #TCB_p_tinib]            /* p_runtsk->p_tinibをr2に  */
     ldr   r0, [r2, #TINIB_exinf]            /* exinfを引数レジスタr0に  */
     ldr   r1, [r2, #TINIB_task]             /* タスク起動番地にジャンプ */
-    mov   pc, r1 
+    bx    r1 
 
 
 /*
@@ -337,15 +340,21 @@ ret_int_3:
     ldr   r0, =reqflg    /* reqflgをfalseに */
     mov   r1, #0
     str   r1, [r0]
+
     /*
-     *  CPUロック状態に移行する．
+     *  CPUロック状態に移行し，割込み優先度マスクを割込み処理前の値に
+     *  設定する．
      *
      *  この時点でCPUロック状態とするのは，dispatcherへ分岐する時と，
      *  call_texrtnを呼び出す時に，CPUロック状態になっている必要がある
      *  ためである．
      *
-     *  ARMでは，CPSRのIRQビットでCPUロック状態を表現するため，ここでは，
-     *  特に何も行わない．
+     *  CPUロック状態に関しては，ARMでは，CPSRのIRQビットでCPUロック
+     *  状態を表現するため，ここでは，特に何も行わない．
+     *
+     *  割込み優先度マスクに関しては，ターゲット毎に操作が異なるため，
+     *  割込みハンドラ終了直後にターゲット依存部で割込み処理前の値に
+     *  設定する．
      */
     
     /*
@@ -354,7 +363,6 @@ ret_int_3:
      *  理ルーチンの呼出しが必要な場合に，ディスパッチが必要なくても，
      *  reqflgをtrueにするためである．
      */
-
     ldr   r0, =p_runtsk       /* p_runtsk をr1に読み込む */
     ldr   r1, [r0]
     ldr   r0, =dspflg
@@ -375,16 +383,20 @@ ret_int_r:
     ldmfd sp!, {r4-r11}       /* レジスタの復帰 */    
 ret_int_4:
     /*
-     *  enatexがtrueで，texptnが0でなければ，タスク例外処理ルーチンを
-     *  呼び出す．
+     *  enatexがtrueで，texptnが0でなく，ipmflgがtrueであれば，タスク
+     *  例外処理ルーチンを呼び出す．
      *  dispatcherから呼び出されるため，TCBのアドレスはr1に入っている
      */
     ldrb  r0, [r1,#TCB_enatex]
     tst   r0, #TCB_enatex_mask
     beq   ret_int_5              /* enatex が false なら ret_int5へ */
-    ldr   r0, [r1,#TCB_texptn]   /* texptnをロード               */
-    tst   r0, r0                 /* texptn が0で無ければ         */
-    blne  call_texrtn            /* タスク例外ルーチンの呼び出し */            
+    ldr   r0, [r1,#TCB_texptn]   /* texptnをロード                  */
+    tst   r0, r0                 /* texptn が0なら ret_int5へ       */
+    beq   ret_int_5
+    ldr   r1, =ipmflg           /* ipmflgがfalseであれば ret_int5へ */
+    ldr   r0, [r1]
+    tst   r0,r0
+    blne  call_texrtn            /* タスク例外ルーチンの呼び出し    */
 ret_int_5:
     /*
      *  割込み処理からのリターンにより，CPUロック解除状態に移行するよ
@@ -523,9 +535,23 @@ _sil_dly_nse:
     sub   r0, r0, #SIL_DLY_TIM1
     cmp   r0, #0
     bgt   _sil_dly_nse1
-    movle pc, lr
+    bxle  lr
 _sil_dly_nse1:
     sub   r0, r0, #SIL_DLY_TIM2
     cmp   r0, #0
     bgt   _sil_dly_nse1
-    movle pc, lr
+    bxle  lr
+
+#ifdef __thumb__
+    .text
+    .align 2
+    .global current_sr
+current_sr:
+    mrs   r0, cpsr
+    bx    lr
+
+   .global set_sr
+set_sr:
+    msr   cpsr, r0
+    bx    lr
+#endif /* __thumb__ */

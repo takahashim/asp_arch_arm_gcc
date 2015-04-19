@@ -13,11 +13,6 @@ $
 $EXCNO_DEFEXC_VALID = EXCNO_VALID$
 
 $ 
-$  チェック方法の指定
-$ 
-$CHECK_STKSZ_ALIGN = 8$
-
-$ 
 $  標準テンプレートファイルのインクルード
 $ 
 $INCLUDE "kernel/kernel.tf"$

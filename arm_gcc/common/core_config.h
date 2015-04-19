@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2008 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_config.h 1615 2009-07-14 14:43:38Z ertl-honda $
+ *  @(#) $Id: core_config.h 2075 2011-05-09 03:47:09Z ertl-honda $
  */
 
 
@@ -56,6 +56,18 @@
  *  ARM依存の定義
  */
 #include "arm.h"
+
+/*
+ *  エラーチェック方法の指定
+ */
+#define CHECK_STKSZ_ALIGN	8	/* スタックサイズのアライン単位 */
+#define CHECK_FUNC_ALIGN	4	/* 関数のアライン単位 */
+#define CHECK_FUNC_NONNULL		/* 関数の非NULLチェック */
+#define CHECK_STACK_ALIGN	4	/* スタック領域のアライン単位 */
+#define CHECK_STACK_NONNULL		/* スタック領域の非NULLチェック */
+#define CHECK_MPF_ALIGN		4	/* 固定長メモリプール領域のアライン単位 */
+#define CHECK_MPF_NONNULL		/* 固定長メモリプール領域の非NULLチェック */
+#define CHECK_MB_ALIGN		4	/* 管理領域のアライン単位 */
 
 /*
  *  CPUロックとするCPSRのパターン
@@ -110,7 +122,7 @@
 typedef struct task_context_block {
     void  *sp;       /* スタックポインタ */
     FP    pc;        /* プログラムカウンタ */
-} CTXB;
+} TSKCTXB;
 
 
 /*
@@ -319,10 +331,10 @@ exc_sense_int_lock(void *p_excinf){
  *  CPU例外の発生した時のコンテキストと割込みのマスク状態の参照
  *
  *  CPU例外の発生した時のシステム状態が，カーネル実行中でなく，タスクコ
- *  ンテキストであり，割込みロック状態でなく，CPUロック状態でなく，（モ
- *  デル上の）割込み優先度マスク全解除状態である時にtrue，そうでない時
- *  にfalseを返す（CPU例外がカーネル管理外の割込み処理中で発生した場合
- *  にもfalseを返す）．
+ *  ンテキストであり，全割込みロック状態でなく，CPUロック状態でなく，割
+ *  込み優先度マスク全解除状態である時にtrue，そうでない時にfalseを返す
+ *  （CPU例外がカーネル管理外の割込み処理中で発生した場合にもfalseを返
+ *  す）．
  *
  */
 Inline bool_t
@@ -332,24 +344,6 @@ exc_sense_intmask(void *p_excinf)
              && (exc_get_ipm(p_excinf) == 0U)
                && !exc_sense_lock(p_excinf)
                  && !exc_sense_int_lock(p_excinf));
-}
-
-/*
- *  CPU例外の発生した時のコンテキストと割込み／CPUロック状態の参照
- *
- *  CPU例外の発生した時のシステム状態が，カーネル実行中でなく，タスクコ
- *  ンテキストであり，割込みロック状態でなく，CPUロック状態でない時に
- *  true，そうでない時にfalseを返す（CPU例外がカーネル管理外の割込み処
- *  理中で発生した場合にもfalseを返す）．
- *
- */
-Inline bool_t
-exc_sense_unlock(void *p_excinf)
-{
-    return(!exc_sense_context(p_excinf)
-             && !exc_sense_lock(p_excinf)
-               && !exc_sense_int_lock(p_excinf));
-        
 }
 
 /*

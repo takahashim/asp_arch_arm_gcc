@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2008 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2010 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_insn.h 954 2008-04-14 09:13:34Z ertl-honda $
+ *  @(#) $Id: core_insn.h 1946 2010-10-05 08:18:11Z ertl-honda $
  */
 
 
@@ -48,11 +48,13 @@
 #ifndef CORE_INSN_H
 #define CORE_INSN_H
 
-#include <arm.h>
+#include "arm.h"
 
 /*
  *  制御レジスタの操作関数
  */
+
+#ifndef __thumb__
 
 /*
  *  ステータスレジスタ（CPSR）の現在値の読出し
@@ -74,4 +76,23 @@ set_sr(uint32_t sr)
     Asm("msr CPSR, %0" : : "r"(sr) : "cc");
 }
 
+#else /* __thumb__ */
+
+/*
+ * Thumb Mode では，mrs/msrが使用できないため，関数として，
+ * ARM Mode に変更して実行する． 
+ *  
+ */
+
+/*
+ *  ステータスレジスタ（CPSR）の現在値の読出し
+ */
+extern uint32_t current_sr(void);
+
+/*
+ *  ステータスレジスタ（CPSR）の現在値の変更
+ */
+extern void set_sr(uint32_t sr);
+
+#endif /* __thumb__ */
 #endif /* CORE_INSN_H */

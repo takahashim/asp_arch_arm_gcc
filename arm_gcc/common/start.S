@@ -4,7 +4,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005,2006 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2010 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -36,7 +36,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: start.S 972 2008-04-15 03:53:01Z ertl-honda $
+ *  @(#) $Id: start.S 1867 2010-07-26 08:25:10Z ertl-honda $
  */
                 
 /*
@@ -77,7 +77,7 @@ start:
     ldr   r0, =hardware_init_hook
     cmp   r0, #0x00
     movne lr, pc
-    movne pc, r0 
+    bxne  r0
 
 start_1:
 
@@ -127,7 +127,7 @@ start_5:
     ldr   r0, =software_init_hook
     cmp   r0, #0x00
     movne lr, pc
-    movne pc, r0 
+    bxne  r0
     
     /*
      * カーネルを起動する

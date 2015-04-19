@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2007 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2010 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_config.c 956 2008-04-14 09:16:00Z ertl-honda $
+ *  @(#) $Id: core_config.c 1870 2010-07-26 13:09:18Z ertl-honda $
  */
 
 /*
@@ -52,19 +52,6 @@
  */
 uint32_t excpt_nest_count;
 
-#ifndef VECTOR_KERNEL
-/*
- *  例外ベクタに書き込まれたジャンプ命令が参照するアドレス
- * 
- */
-uint32_t *arm_vector_ref_tbl_add[8];
-
-/*
- * 例外に応じたハンドラの起動番地
- */
-uint32_t arm_saved_exch_add[8];
-#endif /* VECTOR_KERNEL */
-
 /*
  *  プロセッサ依存の初期化
  */
@@ -74,24 +61,7 @@ core_initialize()
     /*
      *  カーネル起動時は非タスクコンテキストとして動作させるため1に
      */ 
-    excpt_nest_count = 1;
-    
-#ifndef VECTOR_KERNEL    
-    {
-        uint32_t i, vector_value;
-
-        /*
-         * 例外ベクタに登録されている命令から参照されるアドレスと，
-         * そのアドレスの内容(ハンドラの番地)を保存する．
-         */
-        for(i = 0; i < TNUM_EXCH; i++){
-            vector_value = *(volatile uint32_t *)(VECTOR_START + (i*4));
-            vector_value &= 0x00000fff;
-            arm_vector_ref_tbl_add[i]  =  (uint32_t *)(vector_value + 8) + i;
-            arm_saved_exch_add[i] = *(arm_vector_ref_tbl_add[i]);
-        }
-    }
-#endif /* VECTOR_KERNEL */    
+    excpt_nest_count = 1;    
 }
 
 /*
@@ -100,16 +70,7 @@ core_initialize()
 void
 core_terminate(void)
 {
-#ifndef VECTOR_KERNEL
-    uint32_t i;
-    
-    /*
-     * 例外ベクタを元に戻す
-     */
-    for(i = 0; i < TNUM_EXCH; i++){
-        *arm_vector_ref_tbl_add[i]  = arm_saved_exch_add[i];
-    }    
-#endif /* VECTOR_KERNEL */   
+
 }
 
 /*
@@ -133,11 +94,7 @@ xlog_sys(void *p_excinf)
 void
 x_install_exc(EXCNO excno, FP exchdr)
 {
-#ifdef VECTOR_KERNEL
     *(((FP*)vector_ref_tbl) + excno) = exchdr;
-#else
-    *arm_vector_ref_tbl_add[excno] = (uint32_t)exchdr;
-#endif /* VECTOR_KERNEL */    
 }
 
 #ifndef OMIT_DEFAULT_EXC_HANDLER

@@ -4,7 +4,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2004-2007 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2004-2010 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -36,7 +36,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_sil.h 948 2008-04-14 08:34:27Z ertl-honda $
+ *  @(#) $Id: core_sil.h 1946 2010-10-05 08:18:11Z ertl-honda $
  */
 
 /*
@@ -48,6 +48,22 @@
 
 #ifndef TOPPERS_MACRO_ONLY
 
+#ifdef __thumb__
+/*
+ *  制御レジスタの操作関数
+ */
+
+/*
+ *  ステータスレジスタ（CPSR）の現在値の読出し
+ */
+extern uint32_t current_sr(void);
+
+/*
+ *  ステータスレジスタ（CPSR）の現在値の変更
+ */
+extern void set_sr(uint32_t sr);
+#endif /* __thumb__ */
+
 /*
  *  すべての割込み（FIQとIRQ）の禁止
  */
@@ -57,10 +73,17 @@ TOPPERS_disint(void)
     uint32_t  cpsr;
     uint32_t  irq_fiq_mask;
 
+#ifndef __thumb__
     Asm("mrs  %0,CPSR" : "=r"(cpsr));
     irq_fiq_mask = cpsr & (0x40|0x80);
     cpsr |= (0x40|0x80);
     Asm("msr CPSR, %0" : : "r"(cpsr) :"memory", "cc");
+#else /* __thumb__ */
+    cpsr = current_sr();
+    irq_fiq_mask = cpsr & (0x40|0x80);
+    cpsr |= (0x40|0x80);
+    set_sr(cpsr);
+#endif /* __thumb__ */
 
     return(irq_fiq_mask);
 }
@@ -73,10 +96,17 @@ TOPPERS_set_fiq_irq(uint32_t TOPPERS_irq_fiq_mask)
 {
     uint32_t  cpsr;
 
+#ifndef __thumb__
     Asm("mrs  %0,CPSR" : "=r"(cpsr));
     cpsr = cpsr & ~(0x40|0x80);
     cpsr = cpsr | (TOPPERS_irq_fiq_mask & (0x40|0x80));
     Asm("msr CPSR, %0" : : "r"(cpsr):"memory", "cc");
+#else /* __thumb__ */
+    cpsr = current_sr();
+    cpsr = cpsr &  ~(0x40|0x80);
+    cpsr = cpsr | (TOPPERS_irq_fiq_mask&  (0x40|0x80));
+    set_sr(cpsr);
+#endif /* __thumb__ */
 }
 
 /*
