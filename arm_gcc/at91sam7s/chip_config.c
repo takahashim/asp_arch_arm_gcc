@@ -36,7 +36,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: chip_config.c 1560 2009-05-18 13:03:14Z ertl-honda $
+ *  @(#) $Id: chip_config.c 1635 2009-09-16 01:17:30Z ertl-honda $
  */
 
 /*
@@ -231,7 +231,7 @@ x_config_int(INTNO intno, ATR intatr, PRI intpri)
         smr_val = AIC_SRCTYPE_INT_LEVEL_SENSITIVE;
     }
     
-    sil_wrw_mem((void*)(TADR_AIC_BASE+TOFF_AIC_SMR+intno*4U), smr_val|intpri);
+    sil_wrw_mem((void*)(TADR_AIC_BASE+TOFF_AIC_SMR+intno*4U), smr_val|INT_IPM(intpri));
     
     if ((intatr & TA_ENAINT) != 0U){
         (void)x_enable_int(intno);

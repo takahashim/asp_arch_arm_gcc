@@ -29,7 +29,7 @@ $INTPRI_CFGINT_VALID = { -1,-2,...,-7 }$
 $ 
 $  割込み属性中のターゲット依存に用いるビット
 $ 
-$TARGET_INTATR = TA_HIGHLEVEL$
+$TARGET_INTATR = TA_HIGHLEVEL | TA_POSEDGE | TA_LOWLEVEL$
 
 $ 
 $  コア依存テンプレートのインクルード（ARM用）

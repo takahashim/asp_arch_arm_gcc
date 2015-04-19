@@ -36,7 +36,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: chip_config.h 1560 2009-05-18 13:03:14Z ertl-honda $
+ *  @(#) $Id: chip_config.h 1635 2009-09-16 01:17:30Z ertl-honda $
  */
 
 /*
@@ -140,6 +140,20 @@ x_define_inh(INHNO inhno, FP int_entry)
 /*
  *  TOPPERS標準割込み処理モデルの実現
  */
+
+/*
+ *  割込み優先度マスクの外部表現と内部表現の変換
+ *
+ *  アセンブリ言語のソースファイルからインクルードする場合のために，型
+ *  キャストしない定義も用意している．
+ */
+#ifndef TOPPERS_MACRO_ONLY
+#define EXT_IPM(iipm)    ((PRI)(-iipm))     /* 内部表現を外部表現に */
+#define INT_IPM(ipm)     ((uint8_t)(-ipm))  /* 外部表現を内部表現に */
+#else /* TOPPERS_MACRO_ONLY */
+#define EXT_IPM(iipm)    (-iipm)            /* 内部表現を外部表現に */
+#define INT_IPM(ipm)     (-ipm)             /* 外部表現を内部表現に */
+#endif /* TOPPERS_MACRO_ONLY */
 
 /*
  * 各割込みの割込み要求禁止フラグの状態
