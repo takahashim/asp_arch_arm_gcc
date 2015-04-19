@@ -3,7 +3,7 @@
  *      Toyohashi Open Platform for Embedded Real-Time Systems/
  *      Advanced Standard Profile Kernel
  * 
- *  Copyright (C) 2006-2007 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2009 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -35,7 +35,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: chip_kernel.h 948 2008-04-14 08:34:27Z ertl-honda $
+ *  @(#) $Id: chip_kernel.h 1635 2009-09-16 01:17:30Z ertl-honda $
  */
 
 /*
@@ -77,7 +77,7 @@
 /*
  *  割り込み属性
  */
-#define	TA_POSEDGE		0x02U		/* ポジティブエッジトリガ */
+#define	TA_POSEDGE		0x04U		/* ポジティブエッジトリガ */
 #define	TA_LOWLEVEL		0x00U		/* ローレベルトリガ */
 #define	TA_HIGHLEVEL	0x08U		/* ハイレベルトリガ */
 

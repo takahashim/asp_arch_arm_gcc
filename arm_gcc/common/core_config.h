@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_config.h 848 2008-03-20 15:55:44Z honda $
+ *  @(#) $Id: core_config.h 1615 2009-07-14 14:43:38Z ertl-honda $
  */
 
 
@@ -285,10 +285,10 @@ exc_sense_context(void *p_excinf)
 /*
  *  CPU例外の発生した時の(モデル上の)割込み優先度マスクの参照
  */
-Inline uint8_t
+Inline PRI
 exc_get_ipm(void *p_excinf)
 {
-    return((uint8_t)(*(((uint32_t *)(p_excinf)) + 1)));
+    return((PRI)(*(((uint32_t *)(p_excinf)) + 1)));
 }
 
 /*
