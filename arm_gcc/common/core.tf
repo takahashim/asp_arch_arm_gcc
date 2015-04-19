@@ -1,25 +1,25 @@
 $ 
 $     パス2のコア依存テンプレート（ARM用）
-$ 
+$
 
-$ 
-$ 有効なCPU例外ハンドラ番号
-$ 
+$
+$  有効なCPU例外ハンドラ番号
+$
 $EXCNO_VALID = { 1,2,3,4,6 }$
 
-$ 
+$
 $  DEF_EXCで使用できるCPU例外ハンドラ番号
-$ 
+$
 $EXCNO_DEFEXC_VALID = EXCNO_VALID$
 
-$ 
+$
 $  標準テンプレートファイルのインクルード
-$ 
+$
 $INCLUDE "kernel/kernel.tf"$
 
-$ 
+$
 $  例外ハンドラテーブル
-$ 
+$
 $FILE "kernel_cfg.c"$
 $NL$
 const FP _kernel_exch_tbl[TNUM_EXCH] = {$NL$

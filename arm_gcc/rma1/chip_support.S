@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2012 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,73 +37,25 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_config.c 2350 2012-04-29 04:32:20Z ertl-honda $
+ *  @(#) $Id: chip_support.S 2480 2013-02-21 13:15:21Z ertl-honda $
  */
 
 /*
- *        コア依存モジュール（ARM用）
+ *  ターゲット依存モジュール アセンブリ言語部（CA9用）
  */
+
+#define  TOPPERS_MACRO_ONLY
+#define UINT_C(val)		(val)		/* uint_t型の定数を作るマクロ */
+#define ULONG_C(val)	(val)		/* ulong_t型の定数を作るマクロ */
 #include "kernel_impl.h"
-#include "check.h"
-#include "task.h"
 
 /*
- *  コンテキスト参照のための変数
- */
-uint32_t excpt_nest_count;
-
-/*
- *  プロセッサ依存の初期化
- */
-void
-core_initialize()
-{
-	/*
-	 *  カーネル起動時は非タスクコンテキストとして動作させるため1に
-	 */ 
-	excpt_nest_count = 1;
-}
-
-/*
- *  プロセッサ依存の終了処理
- */
-void
-core_terminate(void)
-{
-
-}
-
-/*
- *  CPU例外の発生状況のログ出力
+ *  低レベルのターゲットシステム依存の初期化
  *
- *  CPU例外ハンドラの中から，CPU例外情報ポインタ（p_excinf）を引数とし
- *  て呼び出すことで，CPU例外の発生状況をシステムログに出力する．
+ *  スタートアップモジュールの中で，メモリ初期化の前に呼び出される．          
  */
-#ifdef SUPPORT_XLOG_SYS
-
-void
-xlog_sys(void *p_excinf)
-{
-}
-
-#endif /* SUPPORT_XLOG_SYS */
-
-/*
- *  例外ベクタから直接実行するハンドラを登録
- */ 
-void
-x_install_exc(EXCNO excno, FP exchdr)
-{
-	*(((FP*)vector_ref_tbl) + excno) = exchdr;
-}
-
-#ifndef OMIT_DEFAULT_EXC_HANDLER
-/*
- * 未定義の例外が入った場合の処理
- */
-void
-default_exc_handler(void){
-	syslog_0(LOG_EMERG, "Unregistered Exception occurs.");
-	ext_ker();
-}
-#endif /* OMIT_DEFAULT_EXC_HANDLER */
+    .text
+    .align 2
+    .global hardware_init_hook
+hardware_init_hook:
+    bx    lr

@@ -4,7 +4,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2005-2010 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2005-2012 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -36,101 +36,102 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: start.S 1867 2010-07-26 08:25:10Z ertl-honda $
+ *  @(#) $Id: start.S 2350 2012-04-29 04:32:20Z ertl-honda $
  */
-                
+
 /*
  *   カーネル用のスタートアップモジュール(ARM用)
  */
-#define    TOPPERS_MACRO_ONLY
+#define TOPPERS_MACRO_ONLY
 #define UINT_C(val)		(val)		/* uint_t型の定数を作るマクロ */
 #define ULONG_C(val)	(val)		/* ulong_t型の定数を作るマクロ */
+
 #include "kernel_impl.h"
+#include "target_asm.inc"
 
-    .text
-    .code 32
-    .align  2
-    .global start
-start:
-    /*
-     * プロセッサモードの初期化
-     * スーパーバイザーモード，FIQ/IRQ禁止
-     */
-    msr  cpsr, #(CPSR_SVC|CPSR_INTLOCK) 
+	ATEXT
+	AALIGN(2)
+	AGLOBAL(start)
+ALABEL(start)
+	/*
+	 * プロセッサモードの初期化
+	 * スーパーバイザーモード，FIQ/IRQ禁止
+	 */
+	msr  cpsr_cxsf, #(CPSR_SVC AOR CPSR_FIQ_BIT AOR CPSR_IRQ_BIT) 
 
-    /*
-     * スタックポインタと，フレームポインタの初期化
-     * sl(スタック上限レジスタr10)は設定する必要があるか?
-     * gccはディフォルトでは-mapcsなので必要ない
-     */
-    ldr  r0, =_kernel_istkpt
-    ldr  sp, [r0]
-    mov  fp, #0        /* ARMモード用フレームポインタ(r11) */         
-    mov  r7, #0        /* Thumbモード用フレームポインタ    */
+	/*
+	 * スタックポインタと，フレームポインタの初期化
+	 * sl(スタック上限レジスタr10)は設定する必要があるか?
+	 * gccはディフォルトでは-mapcsなので必要ない
+	 */
+	ldr  r0, =_kernel_istkpt
+	ldr  sp, [r0]
+	mov  fp, #0        /* ARMモード用フレームポインタ(r11) */         
+	mov  r7, #0        /* Thumbモード用フレームポインタ    */
 
-    /*
-     * hardware_init_hookの呼び出し （0でない場合）
-     *
-     * ターゲットハードウェアに依存して必要な初期化処理がある場合
-     * は，hardware_init_hook という関数を用意する
-     */
-    ldr   r0, =hardware_init_hook
-    cmp   r0, #0x00
-    movne lr, pc
-    bxne  r0
+	/*
+	 * hardware_init_hookの呼び出し （0でない場合）
+	 *
+	 * ターゲットハードウェアに依存して必要な初期化処理がある場合
+	 * は，hardware_init_hook という関数を用意する
+	 */
+	ldr   r0, =hardware_init_hook
+	cmp   r0, #0x00
+	movne lr, pc
+	bxne  r0
 
-start_1:
+ALABEL(start_1)
 
 #ifndef TOPPERS_OMIT_BSS_INIT
-    /*
-     *  bssセクションのクリア
-     */        
-    ldr  r1, =__bss_start
-    ldr  r2, =__bss_end
-    cmp  r1,r2
-    bhs  start_3
-    mov  r0,#0
-start_2:
-    str  r0,[r1],#4
-    cmp  r1, r2
-    blo  start_2
+	/*
+	 *  bssセクションのクリア
+	 */
+	ldr  r1, =BSS_START
+	ldr  r2, =BSS_END
+	cmp  r1,r2
+	bhs  start_3
+	mov  r0,#0
+ALABEL(start_2)
+	str  r0,[r1],#4
+	cmp  r1, r2
+	blo  start_2
 #endif /* TOPPERS_OMIT_BSS_INIT */
-       
-start_3: 
+	   
+ALABEL(start_3)
 
 #ifndef TOPPERS_OMIT_DATA_INIT
-    /*
-     *  dataセクションの初期化(ROM化対応)
-     *  __idata_start から __idata_end までを，__data_start 以降に
-     *  コピーする
-     */
-    ldr  r1, =__idata_start
-    ldr  r3, =__idata_end
-    cmp  r1, r3
-    bhs  start_5
-    ldr  r2, =__data_start
-start_4:        
-    ldr  r0, [r1],#4
-    str  r0, [r2],#4
-    cmp  r1, r3
-    blo  start_4
+	/*
+	 *  dataセクションの初期化(ROM化対応)
+	 *  IDATA_START から IDATA_END までを，DATA_START 以降に
+	 *  コピーする
+	 */
+	ldr  r1, =IDATA_START
+	ldr  r3, =IDATA_END
+	cmp  r1, r3
+	bhs  start_5
+	ldr  r2, =DATA_START
+ALABEL(start_4)
+	ldr  r0, [r1],#4
+	str  r0, [r2],#4
+	cmp  r1, r3
+	blo  start_4
 #endif /* TOPPERS_OMIT_DATA_INIT */
 
-    /*
-     *  software_init_hook を呼出し（0 でない場合）
-     *
-     *  ソフトウェア環境（特にライブラリ）に依存して必要な初期化処
-     *  理がある場合は，software_init_hook という関数を用意すれば
-     *  よい．
-     */
-start_5:
-    ldr   r0, =software_init_hook
-    cmp   r0, #0x00
-    movne lr, pc
-    bxne  r0
-    
-    /*
-     * カーネルを起動する
-     */
-start_6:        
-    bl   sta_ker
+	/*
+	 *  software_init_hook を呼出し（0 でない場合）
+	 *
+	 *  ソフトウェア環境（特にライブラリ）に依存して必要な初期化処
+	 *  理がある場合は，software_init_hook という関数を用意すれば
+	 *  よい．
+	 */
+ALABEL(start_5)
+	ldr   r0, =software_init_hook
+	cmp   r0, #0x00
+	movne lr, pc
+	bxne  r0
+
+	/*
+	 * カーネルを起動する
+	 */
+ALABEL(start_6)
+	bl   sta_ker

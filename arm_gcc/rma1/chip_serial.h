@@ -3,9 +3,7 @@
  *      Toyohashi Open Platform for Embedded Real-Time Systems/
  *      Advanced Standard Profile Kernel
  * 
- *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
- *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2012 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2007-2011 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,73 +35,69 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_config.c 2350 2012-04-29 04:32:20Z ertl-honda $
+ *  @(#) $Id: chip_serial.h 2494 2013-03-25 14:14:50Z ertl-honda $
  */
 
 /*
- *        コア依存モジュール（ARM用）
+ *  シリアルI/Oデバイス（SIO）ドライバ（RMA1用）
  */
-#include "kernel_impl.h"
-#include "check.h"
-#include "task.h"
+
+#ifndef TOPPERS_CHIP_SERIAL_H
+#define TOPPERS_CHIP_SERIAL_H
+
+#include "scif.h"
+
+#ifndef TOPPERS_MACRO_ONLY
 
 /*
- *  コンテキスト参照のための変数
+ *  SIOドライバの初期化
  */
-uint32_t excpt_nest_count;
+extern void sio_initialize(intptr_t exinf);
 
 /*
- *  プロセッサ依存の初期化
+ *  シリアルI/Oポートのオープン
  */
-void
-core_initialize()
-{
-	/*
-	 *  カーネル起動時は非タスクコンテキストとして動作させるため1に
-	 */ 
-	excpt_nest_count = 1;
-}
+extern SIOPCB *sio_opn_por(ID siopid, intptr_t exinf);
 
 /*
- *  プロセッサ依存の終了処理
+ *  シリアルI/Oポートのクローズ
  */
-void
-core_terminate(void)
-{
-
-}
+extern void sio_cls_por(SIOPCB *p_siopcb);
 
 /*
- *  CPU例外の発生状況のログ出力
- *
- *  CPU例外ハンドラの中から，CPU例外情報ポインタ（p_excinf）を引数とし
- *  て呼び出すことで，CPU例外の発生状況をシステムログに出力する．
+ *  SIOの割込みハンドラ
  */
-#ifdef SUPPORT_XLOG_SYS
-
-void
-xlog_sys(void *p_excinf)
-{
-}
-
-#endif /* SUPPORT_XLOG_SYS */
+extern void sio_isr(intptr_t exinf);
 
 /*
- *  例外ベクタから直接実行するハンドラを登録
- */ 
-void
-x_install_exc(EXCNO excno, FP exchdr)
-{
-	*(((FP*)vector_ref_tbl) + excno) = exchdr;
-}
-
-#ifndef OMIT_DEFAULT_EXC_HANDLER
-/*
- * 未定義の例外が入った場合の処理
+ *  シリアルI/Oポートへの文字送信
  */
-void
-default_exc_handler(void){
-	syslog_0(LOG_EMERG, "Unregistered Exception occurs.");
-	ext_ker();
-}
-#endif /* OMIT_DEFAULT_EXC_HANDLER */
+extern bool_t sio_snd_chr(SIOPCB *siopcb, char c);
+
+/*
+ *  シリアルI/Oポートからの文字受信
+ */
+extern int_t sio_rcv_chr(SIOPCB *siopcb);
+
+/*
+ *  シリアルI/Oポートからのコールバックの許可
+ */
+extern void sio_ena_cbr(SIOPCB *siopcb, uint_t cbrtn);
+
+/*
+ *  シリアルI/Oポートからのコールバックの禁止
+ */
+extern void sio_dis_cbr(SIOPCB *siopcb, uint_t cbrtn);
+
+/*
+ *  シリアルI/Oポートからの送信可能コールバック
+ */
+extern void sio_irdy_snd(intptr_t exinf);
+
+/*
+ *  シリアルI/Oポートからの受信通知コールバック
+ */
+extern void sio_irdy_rcv(intptr_t exinf);
+
+#endif /* TOPPERS_MACRO_ONLY */
+#endif /* TOPPERS_CHIP_SERIAL_H */

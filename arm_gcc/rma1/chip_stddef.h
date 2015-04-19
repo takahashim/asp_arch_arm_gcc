@@ -1,11 +1,8 @@
 /*
- *  TOPPERS/ASP Kernel
- *      Toyohashi Open Platform for Embedded Real-Time Systems/
- *      Advanced Standard Profile Kernel
+ *  TOPPERS Software
+ *      Toyohashi Open Platform for Embedded Real-Time Systems
  * 
- *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
- *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2012 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2007 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,73 +34,35 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_config.c 2350 2012-04-29 04:32:20Z ertl-honda $
+ *  @(#) $Id: chip_stddef.h 2480 2013-02-21 13:15:21Z ertl-honda $
  */
 
 /*
- *        コア依存モジュール（ARM用）
- */
-#include "kernel_impl.h"
-#include "check.h"
-#include "task.h"
-
-/*
- *  コンテキスト参照のための変数
- */
-uint32_t excpt_nest_count;
-
-/*
- *  プロセッサ依存の初期化
- */
-void
-core_initialize()
-{
-	/*
-	 *  カーネル起動時は非タスクコンテキストとして動作させるため1に
-	 */ 
-	excpt_nest_count = 1;
-}
-
-/*
- *  プロセッサ依存の終了処理
- */
-void
-core_terminate(void)
-{
-
-}
-
-/*
- *  CPU例外の発生状況のログ出力
+ *  t_stddef.hのチップ依存部（RMA1用）
  *
- *  CPU例外ハンドラの中から，CPU例外情報ポインタ（p_excinf）を引数とし
- *  て呼び出すことで，CPU例外の発生状況をシステムログに出力する．
+ *  このインクルードファイルは，t_stddef.hの先頭でインクルードされる．
+ *  他のファイルからは直接インクルードすることはない．他のインクルード
+ *  ファイルに先立って処理されるため，他のインクルードファイルに依存し
+ *  てはならない．
  */
-#ifdef SUPPORT_XLOG_SYS
 
-void
-xlog_sys(void *p_excinf)
-{
-}
-
-#endif /* SUPPORT_XLOG_SYS */
+#ifndef TOPPERS_CHIP_STDDEF_H
+#define TOPPERS_CHIP_STDDEF_H
 
 /*
- *  例外ベクタから直接実行するハンドラを登録
- */ 
-void
-x_install_exc(EXCNO excno, FP exchdr)
-{
-	*(((FP*)vector_ref_tbl) + excno) = exchdr;
-}
-
-#ifndef OMIT_DEFAULT_EXC_HANDLER
-/*
- * 未定義の例外が入った場合の処理
+ *  ターゲットを識別するためのマクロの定義
  */
-void
-default_exc_handler(void){
-	syslog_0(LOG_EMERG, "Unregistered Exception occurs.");
-	ext_ker();
-}
-#endif /* OMIT_DEFAULT_EXC_HANDLER */
+#define TOPPERS_RMA1                /* システム略称 */
+
+/*
+ *  開発環境で共通な定義
+ */
+#define TOPPERS_STDINT_TYPE1
+#include "gcc/tool_stddef.h"
+
+/*
+ *  ARMで共通な定義
+ */
+#include "arm_gcc/common/core_stddef.h"
+
+#endif /* TOPPERS_CHIP_STDDEF_H */

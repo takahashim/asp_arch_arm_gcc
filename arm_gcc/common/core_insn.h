@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_insn.h 1946 2010-10-05 08:18:11Z ertl-honda $
+ *  @(#) $Id: core_insn.h 2350 2012-04-29 04:32:20Z ertl-honda $
  */
 
 
@@ -51,6 +51,11 @@
 #include "arm.h"
 
 /*
+ *  メモリが変更されることをコンパイラに伝えるためのマクロ
+ */
+#define ARM_MEMORY_CHANGED Asm("":::"memory")
+
+/*
  *  制御レジスタの操作関数
  */
 
@@ -62,9 +67,9 @@
 Inline uint32_t
 current_sr(void)
 {
-    uint32_t sr;
-    Asm("mrs  %0,CPSR" : "=r"(sr));
-    return(sr);
+	uint32_t sr;
+	Asm("mrs  %0,CPSR" : "=r"(sr));
+	return(sr);
 }
 
 /*
@@ -73,7 +78,7 @@ current_sr(void)
 Inline void
 set_sr(uint32_t sr)
 {
-    Asm("msr CPSR, %0" : : "r"(sr) : "cc");
+	Asm("msr CPSR, %0" : : "r"(sr) : "cc");
 }
 
 #else /* __thumb__ */

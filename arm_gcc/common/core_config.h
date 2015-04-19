@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2003 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2011 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2013 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  ¾åµ­Ãøºî¸¢¼Ô¤Ï¡¤°Ê²¼¤Î(1)¡Á(4)¤Î¾ò·ï¤òËþ¤¿¤¹¾ì¹ç¤Ë¸Â¤ê¡¤ËÜ¥½¥Õ¥È¥¦¥§
@@ -37,7 +37,7 @@
  *  ¥¢¤ÎÍøÍÑ¤Ë¤è¤êÄ¾ÀÜÅª¤Þ¤¿¤Ï´ÖÀÜÅª¤ËÀ¸¤¸¤¿¤¤¤«¤Ê¤ëÂ»³²¤Ë´Ø¤·¤Æ¤â¡¤¤½
  *  ¤ÎÀÕÇ¤¤òÉé¤ï¤Ê¤¤¡¥
  * 
- *  @(#) $Id: core_config.h 2075 2011-05-09 03:47:09Z ertl-honda $
+ *  @(#) $Id: core_config.h 2458 2013-02-05 15:07:13Z ertl-honda $
  */
 
 
@@ -61,7 +61,9 @@
  *  ¥¨¥é¡¼¥Á¥§¥Ã¥¯ÊýË¡¤Î»ØÄê
  */
 #define CHECK_STKSZ_ALIGN	8	/* ¥¹¥¿¥Ã¥¯¥µ¥¤¥º¤Î¥¢¥é¥¤¥óÃ±°Ì */
+#ifndef  __thumb__
 #define CHECK_FUNC_ALIGN	4	/* ´Ø¿ô¤Î¥¢¥é¥¤¥óÃ±°Ì */
+#endif /* __thumb__ */
 #define CHECK_FUNC_NONNULL		/* ´Ø¿ô¤ÎÈóNULL¥Á¥§¥Ã¥¯ */
 #define CHECK_STACK_ALIGN	4	/* ¥¹¥¿¥Ã¥¯ÎÎ°è¤Î¥¢¥é¥¤¥óÃ±°Ì */
 #define CHECK_STACK_NONNULL		/* ¥¹¥¿¥Ã¥¯ÎÎ°è¤ÎÈóNULL¥Á¥§¥Ã¥¯ */
@@ -93,7 +95,7 @@
  */
 #define EXCH_NO_RESET     0
 #define EXCH_NO_UNDEF     1
-#define EXCH_NO_SWI       2
+#define EXCH_NO_SVC       2
 #define EXCH_NO_PABORT    3
 #define EXCH_NO_DABORT    4
 #define EXCH_NO_IRQ       5
@@ -109,19 +111,20 @@
 /*
  *  Èó¥¿¥¹¥¯¥³¥ó¥Æ¥­¥¹¥ÈÍÑ¤Î¥¹¥¿¥Ã¥¯½é´üÃÍ
  */
-#define TOPPERS_ISTKPT(istk, istksz) ((STK_T *)((char_t *)(istk) + (istksz)))
+#define TOPPERS_ISTKPT(istk, istksz) ((STK_T *)((uint8_t *)(istk) + (istksz)))
 
 /*
  *  ¥×¥í¥»¥Ã¥µ¤ÎÆÃ¼ìÌ¿Îá¤Î¥¤¥ó¥é¥¤¥ó´Ø¿ôÄêµÁ
+ *  ARMCC¤Î¶¦Í­¤Î¤¿¤á¡¤¥³¥ó¥Ñ¥¤¥é¤Î°ú¿ô¤Ë»ØÄê¤µ¤ì¤¿½ç¤Ç¸¡º÷¤¹¤ë¤è¤¦¤Ë¤¹¤ë¡¥
  */
-#include "core_insn.h"
+#include <core_insn.h>
 
 /*
  *  ¥¿¥¹¥¯¥³¥ó¥Æ¥­¥¹¥È¥Ö¥í¥Ã¥¯¤ÎÄêµÁ
  */
 typedef struct task_context_block {
-    void  *sp;       /* ¥¹¥¿¥Ã¥¯¥Ý¥¤¥ó¥¿ */
-    FP    pc;        /* ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿ */
+	void    *sp;   /* ¥¹¥¿¥Ã¥¯¥Ý¥¤¥ó¥¿ */
+	FP      pc;    /* ¥×¥í¥°¥é¥à¥«¥¦¥ó¥¿ */
 } TSKCTXB;
 
 
@@ -152,7 +155,7 @@ extern uint32_t excpt_nest_count; /* Îã³°¡Ê³ä¹þ¤ß/CPUÎã³°¡Ë¤Î¥Í¥¹¥È²ó¿ô¤Î¥«¥¦¥ó¥
 Inline bool_t
 sense_context(void)
 {
-    return(excpt_nest_count > 0U);
+	return(excpt_nest_count > 0U);
 }
 
 /*
@@ -161,9 +164,9 @@ sense_context(void)
 Inline void
 x_lock_cpu(void)
 {
-    set_sr(current_sr() | CPSR_CPULOCK | CPSR_ALWAYS_SET);
-    /* ¥¯¥ê¥Æ¥£¥«¥ë¥»¥¯¥·¥ç¥ó¤ÎÁ°¸å¤Ç¥á¥â¥ê¤¬½ñ¤­´¹¤ï¤ë²ÄÇ½À­¤¬¤¢¤ë */
-    Asm("":::"memory");
+	set_sr(current_sr() | CPSR_CPULOCK | CPSR_ALWAYS_SET);
+	/* ¥¯¥ê¥Æ¥£¥«¥ë¥»¥¯¥·¥ç¥ó¤ÎÁ°¸å¤Ç¥á¥â¥ê¤¬½ñ¤­´¹¤ï¤ë²ÄÇ½À­¤¬¤¢¤ë */
+	ARM_MEMORY_CHANGED;
 }
 
 #define t_lock_cpu()   x_lock_cpu()
@@ -175,9 +178,9 @@ x_lock_cpu(void)
 Inline void
 x_unlock_cpu(void)
 {
-    /* ¥¯¥ê¥Æ¥£¥«¥ë¥»¥¯¥·¥ç¥ó¤ÎÁ°¸å¤Ç¥á¥â¥ê¤¬½ñ¤­´¹¤ï¤ë²ÄÇ½À­¤¬¤¢¤ë */
-    Asm("":::"memory");
-    set_sr((current_sr() & (~CPSR_CPULOCK)) | CPSR_ALWAYS_SET);
+	/* ¥¯¥ê¥Æ¥£¥«¥ë¥»¥¯¥·¥ç¥ó¤ÎÁ°¸å¤Ç¥á¥â¥ê¤¬½ñ¤­´¹¤ï¤ë²ÄÇ½À­¤¬¤¢¤ë */
+	ARM_MEMORY_CHANGED;
+	set_sr((current_sr() & (~CPSR_CPULOCK)) | CPSR_ALWAYS_SET);
 }
 
 #define t_unlock_cpu() x_unlock_cpu()
@@ -189,11 +192,11 @@ x_unlock_cpu(void)
 Inline bool_t
 x_sense_lock(void)
 {
-    return((current_sr() & CPSR_CPULOCK) == CPSR_CPULOCK);    
+	return((current_sr() & CPSR_CPULOCK) == CPSR_CPULOCK);
 }
 
-#define t_sense_lock()    x_sense_lock()
-#define i_sense_lock()    x_sense_lock()
+#define t_sense_lock() x_sense_lock()
+#define i_sense_lock() x_sense_lock()
 
 /*
  *  ¥¿¥¹¥¯¥Ç¥£¥¹¥Ñ¥Ã¥Á¥ã
@@ -235,7 +238,6 @@ extern void exit_and_dispatch(void) NoReturn;
  *  ¤¹¡¥
  */
 extern void call_exit_kernel(void) NoReturn;
-
      
 /*
  *  ¥¿¥¹¥¯¥³¥ó¥Æ¥­¥¹¥È¤Î½é´ü²½
@@ -246,11 +248,11 @@ extern void call_exit_kernel(void) NoReturn;
  *  activate_context¤ò¡¤¥¤¥ó¥é¥¤¥ó´Ø¿ô¤Ç¤Ï¤Ê¤¯¥Þ¥¯¥íÄêµÁ¤È¤·¤Æ¤¤¤ë¤Î¤Ï¡¤
  *  ¤³¤Î»þÅÀ¤Ç¤ÏTCB¤¬ÄêµÁ¤µ¤ì¤Æ¤¤¤Ê¤¤¤¿¤á¤Ç¤¢¤ë¡¥
  */
-extern void    start_r(void);
+extern void start_r(void);
 
 #define activate_context(p_tcb)                                         \
 {                                                                       \
-    (p_tcb)->tskctxb.sp = (void *)((char_t *)((p_tcb)->p_tinib->stk)    \
+    (p_tcb)->tskctxb.sp = (void *)((uint8_t *)((p_tcb)->p_tinib->stk)   \
                                         + (p_tcb)->p_tinib->stksz);     \
     (p_tcb)->tskctxb.pc = (FP)start_r;                                  \
 }
@@ -259,11 +261,6 @@ extern void    start_r(void);
  *  calltex¤Ï»ÈÍÑ¤·¤Ê¤¤
  */
 #define OMIT_CALLTEX
-     
-/*
- *  CPUÎã³°¥Ï¥ó¥É¥é¤ÎÅÐÏ¿ÍÑ¥Æ¡¼¥Ö¥ë
- */
-extern const FP exch_tbl[TNUM_EXCH];
 
 /*
  * ¥¿¡¼¥²¥Ã¥ÈÈó°ÍÂ¸Éô¤Ë´Þ¤Þ¤ì¤ëÉ¸½à¤ÎÎã³°´ÉÍýµ¡Ç½¤Î½é´ü²½½èÍý¤òÍÑ¤¤¤Ê¤¤
@@ -291,7 +288,7 @@ initialize_exception(void)
 Inline bool_t
 exc_sense_context(void *p_excinf)
 {
-    return((*((uint32_t *) p_excinf)) != 0U);
+	return(((exc_frame_t *)(p_excinf))->nest_count != 0U);
 }
 
 /*
@@ -300,7 +297,7 @@ exc_sense_context(void *p_excinf)
 Inline PRI
 exc_get_ipm(void *p_excinf)
 {
-    return((PRI)(*(((uint32_t *)(p_excinf)) + 1)));
+	return((PRI)(((exc_frame_t *)(p_excinf))->ipm));
 }
 
 /*
@@ -308,7 +305,7 @@ exc_get_ipm(void *p_excinf)
  */
 Inline uint32_t
 exc_get_sr(void *p_excinf){
-    return(*(((uint32_t *)(p_excinf)) + 2));    
+	return(((exc_frame_t *)(p_excinf))->cpsr);
 }
 
 /*
@@ -316,7 +313,7 @@ exc_get_sr(void *p_excinf){
  */
 Inline bool_t
 exc_sense_lock(void *p_excinf){
-    return((exc_get_sr(p_excinf) & CPSR_CPULOCK) == CPSR_CPULOCK);
+	return((exc_get_sr(p_excinf) & CPSR_CPULOCK) == CPSR_CPULOCK);
 }
 
 /*
@@ -324,7 +321,7 @@ exc_sense_lock(void *p_excinf){
  */
 Inline bool_t
 exc_sense_int_lock(void *p_excinf){
-    return((exc_get_sr(p_excinf) & CPSR_INTLOCK) == CPSR_INTLOCK);
+	return((exc_get_sr(p_excinf) & CPSR_INTLOCK) == CPSR_INTLOCK);
 }
 
 /*
@@ -340,10 +337,10 @@ exc_sense_int_lock(void *p_excinf){
 Inline bool_t
 exc_sense_intmask(void *p_excinf)
 {
-    return(!exc_sense_context(p_excinf)
-             && (exc_get_ipm(p_excinf) == 0U)
-               && !exc_sense_lock(p_excinf)
-                 && !exc_sense_int_lock(p_excinf));
+	return(!exc_sense_context(p_excinf)
+		   && (exc_get_ipm(p_excinf) == 0U)
+		   && !exc_sense_lock(p_excinf)
+		   && !exc_sense_int_lock(p_excinf));
 }
 
 /*
@@ -377,9 +374,9 @@ extern void x_install_exc(EXCNO excno, FP exchdr);
 extern void undef_handler(void);
 
 /*
- *  SWI Îã³°¥Ï¥ó¥É¥é¡Êcore_support.S¡Ë
+ *  SVC Îã³°¥Ï¥ó¥É¥é¡Êcore_support.S¡Ë
  */
-extern void swi_handler(void);
+extern void svc_handler(void);
 
 /*
  *  ¥×¥ê¥Õ¥§¥Ã¥Á¥¢¥Ü¡¼¥É Îã³°¥Ï¥ó¥É¥é¡Êcore_support.S¡Ë

@@ -1,8 +1,8 @@
 $ 
-$ 		ƒpƒX3‚ÌƒvƒƒZƒbƒTˆË‘¶ƒeƒ“ƒvƒŒ[ƒgiARM—pj
+$ 		¥Ñ¥¹3¤Î¥×¥í¥»¥Ã¥µ°ÍÂ¸¥Æ¥ó¥×¥ì¡¼¥È¡ÊARMÍÑ¡Ë
 $ 
 
 $ 
-$  •W€ƒeƒ“ƒvƒŒ[ƒgƒtƒ@ƒCƒ‹‚ÌƒCƒ“ƒNƒ‹[ƒh
+$  É¸½à¥Æ¥ó¥×¥ì¡¼¥È¥Õ¥¡¥¤¥ë¤Î¥¤¥ó¥¯¥ë¡¼¥É
 $ 
 $INCLUDE "kernel/kernel_check.tf"$
