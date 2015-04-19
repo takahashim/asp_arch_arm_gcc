@@ -5,7 +5,7 @@
  * 
  *  Copyright (C) 2000-2004 by Embedded and Real-Time Systems Laboratory
  *                              Toyohashi Univ. of Technology, JAPAN
- *  Copyright (C) 2006-2007 by Embedded and Real-Time Systems Laboratory
+ *  Copyright (C) 2006-2008 by Embedded and Real-Time Systems Laboratory
  *              Graduate School of Information Science, Nagoya Univ., JAPAN
  * 
  *  上記著作権者は，以下の(1)〜(4)の条件を満たす場合に限り，本ソフトウェ
@@ -37,7 +37,7 @@
  *  アの利用により直接的または間接的に生じたいかなる損害に関しても，そ
  *  の責任を負わない．
  * 
- *  @(#) $Id: core_support.S 948 2008-04-14 08:34:27Z ertl-honda $
+ *  @(#) $Id: core_support.S 1301 2008-08-27 06:26:41Z ertl-honda $
  */
 
 /*
@@ -61,8 +61,8 @@ vector_table:
     ldr pc, reset_vector       /* リセット             */
     ldr pc, undef_vector       /* 未定義命令           */
     ldr pc, swi_vector         /* ソフトウェア割込み   */
-    ldr pc, prefech_vector     /* プリフェッチアボード */
-    ldr pc, data_abort_vector  /* データアボード       */
+    ldr pc, prefech_vector     /* プリフェッチアボート */
+    ldr pc, data_abort_vector  /* データアボート       */
     ldr pc, reset_vector
     ldr pc, irq_vector         /* IRQ                  */
     ldr pc, fiq_vector         /* FIQ                  */
@@ -95,7 +95,7 @@ fiq_vector:
  *
  */
     .text
-    .align 2    
+    .align 2
     .globl dispatch
 dispatch:
     /*
@@ -123,8 +123,8 @@ dispatch_r:
     ldr   r0,[r1,#TCB_texptn]   /* texptn が0でなければ         */
     tst   r0,r0                 
     bne   call_texrtn           /* タスク例外ルーチンの呼び出し */
-dispatch_r_1:   
-    mov   pc,lr        
+dispatch_r_1:
+    mov   pc,lr
 
 
 /*
@@ -257,7 +257,7 @@ dispatcher_2:
  */
     .globl call_exit_kernel
 call_exit_kernel:
-    msr   cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET) 
+    msr  cpsr, #(CPSR_SVC|CPSR_ALWAYS_SET|CPSR_IRQ_BIT|CPSR_FIQ_BIT) 
     ldr  r0, =_kernel_istkpt       /* 非タスクコンテキストのスタックへ */
     ldr  sp, [r0]
     b     exit_kernel
